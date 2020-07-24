@@ -18,8 +18,10 @@ public class Question {
   @GeneratedValue
   private Long id;
   private String content;
+  @Builder.Default
   @ManyToMany
   private Set<Tag> tags = new HashSet<>();
+  @Builder.Default
   @ManyToMany
   private Set<Image> images = new HashSet<>();
   @OneToOne

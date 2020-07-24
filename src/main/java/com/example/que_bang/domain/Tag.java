@@ -21,4 +21,9 @@ public class Tag {
 
   @Column(unique = true, nullable = false)
   private String title;
+
+  @Builder
+  public Tag(String title) {
+    this.title = title;
+  }
 }

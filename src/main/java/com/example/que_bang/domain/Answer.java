@@ -19,6 +19,7 @@ public class Answer {
   private Long id;
   private String content;
   @ManyToMany
+  @Builder.Default
   private Set<Image> images = new HashSet<>();
   @OneToOne
   private Question question;
