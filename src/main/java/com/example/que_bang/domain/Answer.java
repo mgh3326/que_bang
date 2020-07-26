@@ -1,26 +1,18 @@
 package com.example.que_bang.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
-@Entity
+@Embeddable
 @Getter
-@Setter
-@EqualsAndHashCode(of = "id")
-@Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Answer {
-  @Id
-  @GeneratedValue
-  private Long id;
+  @Column(name = "answer_content")
   private String content;
-  @ManyToMany
-  @Builder.Default
-  private Set<Image> images = new HashSet<>();
-  @OneToOne
-  private Question question;
 }

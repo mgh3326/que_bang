@@ -18,13 +18,14 @@ public class Question {
   @GeneratedValue
   private Long id;
   private String content;
+  private Double score;
+  private Double weight;
   @Builder.Default
   @ManyToMany
   private Set<Tag> tags = new HashSet<>();
   @Builder.Default
   @ManyToMany
   private Set<Image> images = new HashSet<>();
-  @OneToOne
-  @JoinColumn(name = "answer_id")
+  @Embedded
   private Answer answer;
 }
