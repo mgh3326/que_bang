@@ -1,10 +1,11 @@
 package com.example.que_bang.service;
 
 import com.example.que_bang.domain.Image;
-import com.example.que_bang.domain.Question;
 import com.example.que_bang.domain.Tag;
+import com.example.que_bang.domain.question.Question;
 import com.example.que_bang.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,8 @@ import java.util.Set;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class QuestionService {
-  private final QuestionRepository questionRepository;
+  @Autowired
+  private QuestionRepository<Question> questionRepository;
 
   @Transactional
   public Long add(Question question) {
