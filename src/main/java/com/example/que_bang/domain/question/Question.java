@@ -15,6 +15,7 @@ import java.util.Set;
 @DiscriminatorColumn(name = "dtype")
 @Getter
 @Setter
+@NoArgsConstructor
 public abstract class Question {
   @Id
   @GeneratedValue
@@ -35,9 +36,5 @@ public abstract class Question {
     this.score = score;
     this.weight = weight;
     this.answer = answer;
-  }
-
-  public Question() {
-
   }
 }
