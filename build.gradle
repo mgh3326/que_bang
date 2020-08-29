@@ -41,7 +41,7 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'org.springframework.security:spring-security-test'
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.6'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
 }
 
 test {
