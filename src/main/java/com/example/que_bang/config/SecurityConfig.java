@@ -1,5 +1,6 @@
 package com.example.que_bang.config;
 
+import com.example.que_bang.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,7 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+  private final AccountService accountService;
   private final DataSource dataSource;
 
   @Override
@@ -34,6 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     http.logout()
             .logoutSuccessUrl("/");
+
+    http.rememberMe()
+            .userDetailsService(accountService)
+            .tokenRepository(tokenRepository());
   }
 
   @Bean
