@@ -9,6 +9,7 @@ cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
+    - '$HOME/src/main/resources/static/node_modules'
 before_script:
   - chmod +x gradlew
 # clean 후 Build (Build시 자동으로 test 수행)
