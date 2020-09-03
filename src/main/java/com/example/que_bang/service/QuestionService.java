@@ -1,7 +1,7 @@
 package com.example.que_bang.service;
 
 import com.example.que_bang.domain.Image;
-import com.example.que_bang.domain.Tag;
+import com.example.que_bang.domain.Topic;
 import com.example.que_bang.domain.Question;
 import com.example.que_bang.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,19 +26,19 @@ public class QuestionService {
     return question.getId();
   }
 
-  public void addTag(Question question, Tag tag) {
+  public void addTag(Question question, Topic topic) {
     Optional<Question> byId = questionRepository.findById(question.getId());
-    byId.ifPresent(a -> a.getTags().add(tag));
+    byId.ifPresent(a -> a.getTopics().add(topic));
   }
 
-  public Set<Tag> getTags(Question question) {
+  public Set<Topic> getTags(Question question) {
     Optional<Question> byId = questionRepository.findById(question.getId());
-    return byId.orElseThrow().getTags();
+    return byId.orElseThrow().getTopics();
   }
 
-  public void removeTag(Question question, Tag tag) {
+  public void removeTag(Question question, Topic topic) {
     Optional<Question> byId = questionRepository.findById(question.getId());
-    byId.ifPresent(a -> a.getTags().remove(tag));
+    byId.ifPresent(a -> a.getTopics().remove(topic));
   }
 
   public void addImage(Question question, Image image) {

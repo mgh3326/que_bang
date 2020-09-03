@@ -1,6 +1,6 @@
 package com.example.que_bang.service;
 
-import com.example.que_bang.domain.Tag;
+import com.example.que_bang.domain.Topic;
 import com.example.que_bang.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,13 +13,13 @@ public class TagService {
   private final TagRepository tagRepository;
 
   @Transactional
-  public Long add(Tag tag) {
-    tagRepository.save(tag);
+  public Long add(Topic topic) {
+    tagRepository.save(topic);
 
-    return tag.getId();
+    return topic.getId();
   }
 
-  public Tag findOne(Long id) {
+  public Topic findOne(Long id) {
     return tagRepository.findById(id).orElseThrow();
   }
 }

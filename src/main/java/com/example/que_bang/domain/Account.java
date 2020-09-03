@@ -62,7 +62,7 @@ public class Account {
   private boolean studyUpdatedByWeb = true;
 
   @ManyToMany
-  private Set<Tag> tags = new HashSet<>();
+  private Set<Topic> topics = new HashSet<>();
 
   @ManyToMany
   private Set<Zone> zones = new HashSet<>();

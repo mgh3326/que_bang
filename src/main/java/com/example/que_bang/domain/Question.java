@@ -1,15 +1,9 @@
 package com.example.que_bang.domain;
 
-import com.example.que_bang.domain.Answer;
-import com.example.que_bang.domain.Image;
-import com.example.que_bang.domain.QuestionBundle;
-import com.example.que_bang.domain.Tag;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static javax.persistence.FetchType.LAZY;
@@ -31,7 +25,7 @@ public abstract class Question {
   private Double score;
   private Double weight;
   @ManyToMany
-  private Set<Tag> tags = new HashSet<>();
+  private Set<Topic> topics = new HashSet<>();
 
   @ManyToMany
   private Set<Image> images = new HashSet<>();

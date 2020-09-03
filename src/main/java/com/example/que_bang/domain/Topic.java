@@ -14,16 +14,17 @@ import javax.persistence.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tag {
+public class Topic {
   @Id
   @GeneratedValue
+  @Column(name = "topic_id")
   private Long id;
 
   @Column(unique = true, nullable = false)
   private String title;
 
   @Builder
-  public Tag(String title) {
+  public Topic(String title) {
     this.title = title;
   }
 }
