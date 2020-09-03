@@ -1,6 +1,7 @@
 package com.example.que_bang.domain.question;
 
 import com.example.que_bang.domain.Answer;
+import com.example.que_bang.domain.Question;
 import lombok.*;
 
 import javax.persistence.DiscriminatorValue;

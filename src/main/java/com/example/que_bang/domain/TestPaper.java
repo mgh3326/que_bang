@@ -1,6 +1,7 @@
 package com.example.que_bang.domain;
 
-import com.example.que_bang.domain.question.Question;
+import com.example.que_bang.domain.test_paper.TestPaperQuestionBundle;
+import com.example.que_bang.domain.test_paper.TestPaperStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,7 +18,7 @@ public class TestPaper {
   private String title;
   @NotNull
   @Enumerated(EnumType.STRING)
-  private TestPaperStatus testPaperStatus; // READY, COMP (진행중, 완료됨)
+  private TestPaperStatus status; // READY, COMP (진행중, 완료됨)
 
   @OneToMany(mappedBy = "testPaper")
   private List<TestPaperQuestionBundle> testPaperQuestionBundles = new ArrayList<>();

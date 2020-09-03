@@ -1,5 +1,6 @@
 package com.example.que_bang.domain.question;
 
+import com.example.que_bang.domain.Question;
 import lombok.Getter;
 import lombok.Setter;
 

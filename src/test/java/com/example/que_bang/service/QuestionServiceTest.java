@@ -4,7 +4,7 @@ import com.example.que_bang.common.BaseServiceTest;
 import com.example.que_bang.domain.Answer;
 import com.example.que_bang.domain.Tag;
 import com.example.que_bang.domain.question.Essay;
-import com.example.que_bang.domain.question.Question;
+import com.example.que_bang.domain.Question;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

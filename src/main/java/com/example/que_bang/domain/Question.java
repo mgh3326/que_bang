@@ -1,4 +1,4 @@
-package com.example.que_bang.domain.question;
+package com.example.que_bang.domain;
 
 import com.example.que_bang.domain.Answer;
 import com.example.que_bang.domain.Image;
@@ -26,11 +26,13 @@ public abstract class Question {
   @GeneratedValue
   @Column(name = "question_id")
   private Long id;
+  @Lob
   private String content;
   private Double score;
   private Double weight;
   @ManyToMany
   private Set<Tag> tags = new HashSet<>();
+
   @ManyToMany
   private Set<Image> images = new HashSet<>();
   @Embedded

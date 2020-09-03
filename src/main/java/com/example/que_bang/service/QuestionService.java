@@ -2,7 +2,7 @@ package com.example.que_bang.service;
 
 import com.example.que_bang.domain.Image;
 import com.example.que_bang.domain.Tag;
-import com.example.que_bang.domain.question.Question;
+import com.example.que_bang.domain.Question;
 import com.example.que_bang.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

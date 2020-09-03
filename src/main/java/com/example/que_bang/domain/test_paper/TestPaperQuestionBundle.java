@@ -1,4 +1,7 @@
-package com.example.que_bang.domain;
+package com.example.que_bang.domain.test_paper;
+
+import com.example.que_bang.domain.QuestionBundle;
+import com.example.que_bang.domain.TestPaper;
 
 import javax.persistence.*;
 
