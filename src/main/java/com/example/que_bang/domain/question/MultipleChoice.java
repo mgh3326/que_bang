@@ -19,7 +19,7 @@ public class MultipleChoice extends Question {
     super(content, score, weight, answer);
   }
 
-  public static MultipleChoice createMultipleChoice(String content, Double score, Double weight, Answer answer) {
-    return new MultipleChoice(content, score, weight, answer);
+  public static MultipleChoice createMultipleChoiceWithAnswerContent(String content, double score, double weight, String answer_content) {
+    return new MultipleChoice(content, score, weight, new Answer(answer_content));
   }
 }

@@ -42,4 +42,8 @@ public class Topic {
   public Topic(String name) {
     this.name = name;
   }
+
+  public static Topic createTopic(String name) {
+    return new Topic(name);
+  }
 }

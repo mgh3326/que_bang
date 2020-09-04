@@ -15,13 +15,12 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Short extends Question {
-  public Short(String content, Double score, Double weight, Answer answer) {
+public class ShortAnswer extends Question {
+  public ShortAnswer(String content, Double score, Double weight, Answer answer) {
     super(content, score, weight, answer);
   }
 
-  public static Short createShort(String content, Double score, Double weight, Answer answer) {
-    return new Short(content, score, weight, answer);
+  public static ShortAnswer createShortAnswerWithAnswerContent(String content, double score, double weight, String answer_content) {
+    return new ShortAnswer(content, score, weight, new Answer(answer_content));
   }
 }
-

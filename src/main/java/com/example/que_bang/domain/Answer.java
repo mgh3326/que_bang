@@ -12,4 +12,8 @@ import javax.persistence.Embeddable;
 public class Answer {
   @Column(name = "answer_content")
   private String content;
+
+  public static Answer createAnswer(String content) {
+    return new Answer(content);
+  }
 }

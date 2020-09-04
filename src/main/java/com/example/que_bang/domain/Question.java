@@ -4,7 +4,9 @@ import com.example.que_bang.domain.question.Essay;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static javax.persistence.FetchType.LAZY;
@@ -26,7 +28,7 @@ public abstract class Question {
   private Double score;
   private Double weight;
   @ManyToMany(mappedBy = "questions")
-  private Set<Topic> topics = new HashSet<>();
+  private List<Topic> topics = new ArrayList<>();
 
   @ManyToMany
   private Set<Image> images = new HashSet<>();

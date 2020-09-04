@@ -18,7 +18,7 @@ public class Essay extends Question {
     super(content, score, weight, answer);
   }
 
-  public static Essay createEssay(String content, Double score, Double weight, Answer answer) {
-    return new Essay(content, score, weight, answer);
+  public static Essay createEssayWithAnswerContent(String content, double score, double weight, String answer_content) {
+    return new Essay(content, score, weight, new Answer(answer_content));
   }
 }

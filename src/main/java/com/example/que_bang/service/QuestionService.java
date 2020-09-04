@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -31,12 +32,12 @@ public class QuestionService {
     byId.ifPresent(a -> a.getTopics().add(topic));
   }
 
-  public Set<Topic> getTags(Question question) {
+  public List<Topic> getTopics(Question question) {
     Optional<Question> byId = questionRepository.findById(question.getId());
     return byId.orElseThrow().getTopics();
   }
 
-  public void removeTag(Question question, Topic topic) {
+  public void removeTopic(Question question, Topic topic) {
     Optional<Question> byId = questionRepository.findById(question.getId());
     byId.ifPresent(a -> a.getTopics().remove(topic));
   }

@@ -25,15 +25,20 @@ class QuestionServiceTest extends BaseServiceTest {
     Answer answer = new Answer(answer_content);
     Essay essay = new Essay(content, score, weight, answer);
     questionService.add(essay);
-    String tag_title = "title";
-    Topic topic = new Topic(tag_title);
+    String topic_title = "title1";
+    Topic topic = Topic.createTopic(topic_title);
+    String topic_title2 = "title2";
+    Topic topic2 = Topic.createTopic(topic_title2);
     topicService.add(topic);
+    topicService.add(topic2);
+    topic.addChildTopic(topic2);
     questionService.addTag(essay, topic);
+    questionService.addTag(essay, topic2);
     Question essay1 = questionService.findOne(essay.getId());
     assertEquals(essay1.getContent(), content);
     assertEquals(essay1.getScore(), score);
     assertEquals(essay1.getWeight(), weight);
     assertEquals(essay1.getAnswer().getContent(), answer_content);
-    assertTrue(essay1.getTopics().contains(topic));
+    assertTrue(essay1.getTopics().contains(topic2));
   }
 }
