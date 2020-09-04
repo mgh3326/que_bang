@@ -1,5 +1,6 @@
 package com.example.que_bang.domain;
 
+import com.example.que_bang.domain.question.Essay;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public abstract class Question {
   private String content;
   private Double score;
   private Double weight;
-  @ManyToMany
+  @ManyToMany(mappedBy = "questions")
   private Set<Topic> topics = new HashSet<>();
 
   @ManyToMany

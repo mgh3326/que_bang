@@ -11,12 +11,12 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Image {
   @Id
   @GeneratedValue
+  @Column(name = "image_id")
   private Long id;
 
   private String title;

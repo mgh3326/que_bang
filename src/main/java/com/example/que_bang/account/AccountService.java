@@ -33,14 +33,7 @@ public class AccountService implements UserDetailsService {
   }
 
   private Account saveNewAccount(@Valid SignUpForm signUpForm) {
-    Account account = Account.builder()
-            .email(signUpForm.getEmail())
-            .nickname(signUpForm.getNickname())
-            .password(passwordEncoder.encode(signUpForm.getPassword()))
-            .studyCreatedByWeb(true)
-            .studyEnrollmentResultByWeb(true)
-            .studyUpdatedByWeb(true)
-            .build();
+    Account account = Account.CreateAccount(signUpForm.getEmail(), signUpForm.getNickname(), passwordEncoder.encode(signUpForm.getPassword()), true, true, true);
     return accountRepository.save(account);
   }
 

@@ -12,7 +12,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
@@ -83,5 +82,25 @@ public class Account {
 
   public boolean canSendConfirmEmail() {
     return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
+  }
+
+  public Account(String email, String nickname, String password, boolean studyCreatedByWeb, boolean studyEnrollmentResultByWeb, boolean studyUpdatedByWeb) {
+    this.email = email;
+    this.nickname = nickname;
+    this.password = password;
+    this.studyCreatedByWeb = studyCreatedByWeb;
+    this.studyEnrollmentResultByWeb = studyEnrollmentResultByWeb;
+    this.studyUpdatedByWeb = studyUpdatedByWeb;
+  }
+
+  public static Account CreateAccount(String email, String nickname, String password, boolean studyCreatedByWeb, boolean studyEnrollmentResultByWeb, boolean studyUpdatedByWeb) {
+    Account account = new Account();
+    account.email = email;
+    account.nickname = nickname;
+    account.password = password;
+    account.studyCreatedByWeb = studyCreatedByWeb;
+    account.studyEnrollmentResultByWeb = studyEnrollmentResultByWeb;
+    account.studyUpdatedByWeb = studyUpdatedByWeb;
+    return account;
   }
 }

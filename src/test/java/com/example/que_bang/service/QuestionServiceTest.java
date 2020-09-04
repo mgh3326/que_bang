@@ -14,7 +14,7 @@ class QuestionServiceTest extends BaseServiceTest {
   @Autowired
   QuestionService questionService;
   @Autowired
-  TagService tagService;
+  TopicService topicService;
 
   @Test
   void add() {
@@ -26,8 +26,8 @@ class QuestionServiceTest extends BaseServiceTest {
     Essay essay = new Essay(content, score, weight, answer);
     questionService.add(essay);
     String tag_title = "title";
-    Topic topic = Topic.builder().title(tag_title).build();
-    tagService.add(topic);
+    Topic topic = new Topic(tag_title);
+    topicService.add(topic);
     questionService.addTag(essay, topic);
     Question essay1 = questionService.findOne(essay.getId());
     assertEquals(essay1.getContent(), content);

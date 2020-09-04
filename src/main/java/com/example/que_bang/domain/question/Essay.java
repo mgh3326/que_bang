@@ -13,7 +13,12 @@ import javax.persistence.Entity;
 @Setter
 @NoArgsConstructor
 public class Essay extends Question {
+
   public Essay(String content, Double score, Double weight, Answer answer) {
     super(content, score, weight, answer);
+  }
+
+  public static Essay createEssay(String content, Double score, Double weight, Answer answer) {
+    return new Essay(content, score, weight, answer);
   }
 }
