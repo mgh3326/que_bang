@@ -15,10 +15,11 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class Question {
+public abstract class Question extends BaseTimeEntity{
   @Id
   @GeneratedValue
   @Column(name = "question_id")

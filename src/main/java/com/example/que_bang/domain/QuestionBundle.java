@@ -15,10 +15,10 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionBundle {
+public class QuestionBundle extends BaseTimeEntity{
   @Id
   @GeneratedValue
   @Column(name = "question_bundle_id")

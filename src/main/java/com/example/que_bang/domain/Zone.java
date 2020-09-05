@@ -7,11 +7,11 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"city", "province"}))
-public class Zone {
+public class Zone extends BaseTimeEntity{
 
   @Id
   @GeneratedValue

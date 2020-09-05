@@ -11,10 +11,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account {
+public class Account extends BaseTimeEntity{
 
   @Id
   @GeneratedValue

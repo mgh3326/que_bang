@@ -11,10 +11,10 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Topic {
+public class Topic extends BaseTimeEntity{
   @Id
   @GeneratedValue
   @Column(name = "topic_id")

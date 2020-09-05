@@ -10,10 +10,10 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Image {
+public class Image extends BaseTimeEntity{
   @Id
   @GeneratedValue
   @Column(name = "image_id")
