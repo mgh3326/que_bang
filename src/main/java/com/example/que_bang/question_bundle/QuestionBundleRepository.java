@@ -1,7 +1,6 @@
-package com.example.que_bang.repository;
+package com.example.que_bang.question_bundle;
 
 import com.example.que_bang.domain.QuestionBundle;
-import com.example.que_bang.domain.Topic;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QuestionBundleRepository extends JpaRepository<QuestionBundle, Long> {

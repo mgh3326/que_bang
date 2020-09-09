@@ -1,8 +1,6 @@
-package com.example.que_bang.service;
+package com.example.que_bang.question_bundle;
 
-import com.example.que_bang.domain.Question;
 import com.example.que_bang.domain.QuestionBundle;
-import com.example.que_bang.repository.QuestionBundleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

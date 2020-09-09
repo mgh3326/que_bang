@@ -13,9 +13,9 @@ import com.example.que_bang.domain.test_paper.TestPaperQuestionBundle;
 import com.example.que_bang.domain.test_paper.TestPaperStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.example.que_bang.question_bundle.QuestionBundleService;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -68,7 +68,7 @@ class TestPaperServiceTest extends BaseServiceTest {
     TestPaperQuestionBundle testPaperQuestionBundle = TestPaperQuestionBundle.createWithQuestionBundle(questionBundle);
     TestPaper testPaper = TestPaper.createTestPaperWithTestPaperQuestionBundles("test_paper_title", TestPaperStatus.READY, testPaperQuestionBundle);
     testPaperService.add(testPaper);
-    // test paper에 question_bundle 하나 더 추가
+    // test paper에 com.example.que_bang.question_bundle 하나 더 추가
     TestPaperQuestionBundle testPaperQuestionBundle2 = TestPaperQuestionBundle.createWithQuestionBundle(questionBundle2);
     testPaper.addTestPaperQuestionBundle(testPaperQuestionBundle2);
     TestPaper testPaper1 = testPaperService.findOne(testPaper.getId());

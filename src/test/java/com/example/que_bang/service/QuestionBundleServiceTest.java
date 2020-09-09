@@ -10,8 +10,7 @@ import com.example.que_bang.domain.question_bundle.QuestionBundlePaper;
 import com.example.que_bang.domain.question_bundle.QuestionBundleTimeZone;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
+import com.example.que_bang.question_bundle.QuestionBundleService;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
