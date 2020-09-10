@@ -1,22 +1,24 @@
-package question_bundle.form;
+package com.example.que_bang.question_bundle.form;
 
 import com.example.que_bang.domain.question_bundle.QuestionBundlePaper;
 import com.example.que_bang.domain.question_bundle.QuestionBundleTimeZone;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
 
 @Data
 public class QuestionBundleForm {
-  @NotBlank
-  @Email
-  private int year;
-  @NotBlank
-  private int month;
-  @NotBlank
+  @NotNull
+  @PastOrPresent
+  private java.time.Year year;
+  @NotNull
+//  @Pattern(regexp = "^5$|^11$", message = "month는 5와 11만 가능합니다.")
+  private Integer month;
+  @NotNull
   private QuestionBundleTimeZone timeZone;
-  @NotBlank
+  @NotNull
   private QuestionBundlePaper paper; // 시험 종류
 }

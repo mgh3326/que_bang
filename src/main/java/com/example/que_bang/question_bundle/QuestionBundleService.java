@@ -1,7 +1,9 @@
 package com.example.que_bang.question_bundle;
 
 import com.example.que_bang.domain.QuestionBundle;
+import com.example.que_bang.question_bundle.form.QuestionBundleForm;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class QuestionBundleService {
   private final QuestionBundleRepository questionBundleRepository;
+  private final ModelMapper modelMapper;
 
   @Transactional
   public Long add(QuestionBundle questionBundle) {
@@ -19,5 +22,10 @@ public class QuestionBundleService {
 
   public QuestionBundle findOne(Long id) {
     return questionBundleRepository.findById(id).orElseThrow();
+  }
+
+  @Transactional
+  public void updateQuestionBundleDescription(QuestionBundle questionBundle, QuestionBundleForm questionBundleForm) {
+    modelMapper.map(questionBundle, questionBundleForm);
   }
 }

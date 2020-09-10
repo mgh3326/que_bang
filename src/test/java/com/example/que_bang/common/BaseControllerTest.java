@@ -8,8 +8,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @AutoConfigureMockMvc
 public class BaseControllerTest extends BaseServiceTest {
-  @Autowired
-  protected MockMvc mockMvc;
 
   @Autowired
   protected ObjectMapper objectMapper;
