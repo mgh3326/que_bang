@@ -31,8 +31,6 @@ public abstract class Question extends BaseTimeEntity{
   @ManyToMany(mappedBy = "questions")
   private List<Topic> topics = new ArrayList<>();
 
-  @ManyToMany
-  private Set<Image> images = new HashSet<>();
   @Embedded
   private Answer answer;
 
