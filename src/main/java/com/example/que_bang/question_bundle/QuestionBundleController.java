@@ -46,4 +46,13 @@ public class QuestionBundleController {
     model.addAttribute(questionBundle);
     return "question_bundle/view";
   }
+
+  @GetMapping("/question_bundle/{id}/new-question")
+  public String newQuestionForm(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    QuestionBundle questionBundle = questionBundleService.findOne(id);
+    model.addAttribute(account);
+    model.addAttribute(questionBundle);
+
+    return "question/form";
+  }
 }

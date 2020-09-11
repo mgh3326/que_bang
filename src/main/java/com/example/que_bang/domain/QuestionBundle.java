@@ -10,7 +10,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 
 @Entity
@@ -61,8 +63,17 @@ public class QuestionBundle extends BaseTimeEntity {
   }
 
   public void addQuestion(Question question) {
+    question.setWeight(this.generateMinQuestionWeight());
     this.questions.add(question);
     question.setQuestionBundle(this);
+  }
+
+  public final static Double defaultQuestionWeight = 1.0;
+  public final static Double questionWeightInterval = 0.01;
+
+  public Double generateMinQuestionWeight() {
+    Optional<Double> min = questions.stream().map(Question::getWeight).min(Double::compareTo);
+    return min.map(aDouble -> aDouble - questionWeightInterval).orElse(defaultQuestionWeight);
   }
 
   @Override

@@ -19,11 +19,10 @@ class QuestionServiceTest extends BaseServiceTest {
   @Test
   void add() {
     String content = "content";
-    double score = 0.9;
     double weight = 0.9;
     String answer_content = "answer_content";
     Answer answer = new Answer(answer_content);
-    Essay essay = new Essay(content, score, weight, answer);
+    Essay essay = new Essay(content, weight, answer);
     questionService.add(essay);
     String topic_title = "title1";
     Topic topic = Topic.createTopic(topic_title);
@@ -36,7 +35,7 @@ class QuestionServiceTest extends BaseServiceTest {
     questionService.addTag(essay, topic2);
     Question essay1 = questionService.findOne(essay.getId());
     assertEquals(essay1.getContent(), content);
-    assertEquals(essay1.getScore(), score);
+    assertNotNull(essay1.getScore());
     assertEquals(essay1.getWeight(), weight);
     assertEquals(essay1.getAnswer().getContent(), answer_content);
     assertTrue(essay1.getTopics().contains(topic2));

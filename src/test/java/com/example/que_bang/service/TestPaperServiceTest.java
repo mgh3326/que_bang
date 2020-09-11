@@ -18,8 +18,7 @@ import com.example.que_bang.question_bundle.QuestionBundleService;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class TestPaperServiceTest extends BaseServiceTest {
   @Autowired
@@ -43,21 +42,20 @@ class TestPaperServiceTest extends BaseServiceTest {
     topic.addChildTopic(topic2);
 
     String content = "content";
-    double score = 0.9;
     double weight = 0.9;
     String answer_content = "answer_content";
 
-    Essay essay = Essay.createEssayWithAnswerContent(content, score, weight, answer_content);
+    Essay essay = Essay.createEssayWithAnswerContent(content, weight, answer_content);
     questionService.add(essay);
     questionService.addTag(essay, topic);
     questionService.addTag(essay, topic2);
 
-    ShortAnswer shortAnswer = ShortAnswer.createShortAnswerWithAnswerContent(content, score, weight, answer_content);
+    ShortAnswer shortAnswer = ShortAnswer.createShortAnswerWithAnswerContent(content, weight, answer_content);
     questionService.add(shortAnswer);
     questionService.addTag(shortAnswer, topic);
     questionService.addTag(shortAnswer, topic2);
 
-    MultipleChoice multipleChoice = MultipleChoice.createMultipleChoiceWithAnswerContent(content, score, weight, answer_content);
+    MultipleChoice multipleChoice = MultipleChoice.createMultipleChoiceWithAnswerContent(content, weight, answer_content);
     questionService.add(multipleChoice);
     questionService.addTag(multipleChoice, topic);
     questionService.addTag(multipleChoice, topic2);
@@ -74,8 +72,8 @@ class TestPaperServiceTest extends BaseServiceTest {
     TestPaper testPaper1 = testPaperService.findOne(testPaper.getId());
     List<TestPaperQuestionBundle> testPaperQuestionBundles = testPaper1.getTestPaperQuestionBundles();
     List<QuestionBundle> questionBundles = testPaperQuestionBundles.stream().map(TestPaperQuestionBundle::getQuestionBundle).collect(toList());
-    assertTrue(questionBundles.contains(questionBundle));
-    assertTrue(questionBundles.contains(questionBundle2));
+    assertEquals(questionBundle, questionBundles.get(0));
+    assertEquals(questionBundle2, questionBundles.get(1));
     assertNotNull(testPaper1.getCreatedDate());
     assertNotNull(testPaper1.getLastModifiedDate());
   }

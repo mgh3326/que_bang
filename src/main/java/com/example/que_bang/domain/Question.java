@@ -19,14 +19,14 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class Question extends BaseTimeEntity{
+public abstract class Question extends BaseTimeEntity {
   @Id
   @GeneratedValue
   @Column(name = "question_id")
   private Long id;
   @Lob
   private String content;
-  private Double score;
+  private Double score = 1.0;
   private Double weight;
   @ManyToMany(mappedBy = "questions")
   private List<Topic> topics = new ArrayList<>();
@@ -38,9 +38,8 @@ public abstract class Question extends BaseTimeEntity{
   @JoinColumn(name = "question_bundle_id")
   private QuestionBundle questionBundle;
 
-  public Question(String content, Double score, Double weight, Answer answer) {
+  public Question(String content, Double weight, Answer answer) {
     this.content = content;
-    this.score = score;
     this.weight = weight;
     this.answer = answer;
   }

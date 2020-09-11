@@ -16,11 +16,11 @@ import javax.persistence.Entity;
 @Setter
 @NoArgsConstructor
 public class ShortAnswer extends Question {
-  public ShortAnswer(String content, Double score, Double weight, Answer answer) {
-    super(content, score, weight, answer);
+  public ShortAnswer(String content, Double weight, Answer answer) {
+    super(content, weight, answer);
   }
 
-  public static ShortAnswer createShortAnswerWithAnswerContent(String content, double score, double weight, String answer_content) {
-    return new ShortAnswer(content, score, weight, new Answer(answer_content));
+  public static ShortAnswer createShortAnswerWithAnswerContent(String content, double weight, String answerContent) {
+    return new ShortAnswer(content, weight, new Answer(answerContent));
   }
 }
