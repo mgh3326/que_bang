@@ -175,12 +175,14 @@
             </a>
         </div>
         <div class="col-4 text-right justify-content-end">
-                            <span
-                                    class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"
-                                    title="blah blah">
-                    <button class="btn btn-primary btn-sm" style="pointer-events: none;" type="button"
-                            disabled>BLAH</button>
+            <span
+                    class="btn-group" role="group">
+                    <a class="btn btn-primary"
+                       th:href="@{'/question_bundle/' + ${questionBundle.getId()} + '/new-question'}">
+                        문제 추가
+                    </a>
                 </span>
+
         </div>
 
     </div>

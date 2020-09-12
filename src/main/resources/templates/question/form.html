@@ -57,6 +57,7 @@
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('answerContent')}"
                        th:errors="*{answerContent}">AnswerContent Error</small>
             </div>
+            <input type="hidden" th:value="${questionBundle.getId()}" th:attr="name='questionBundleId'" />
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit"
                         aria-describedby="submitHelp">문제 만들기

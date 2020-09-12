@@ -30,7 +30,7 @@ class QuestionBundleSettingControllerTest extends BaseControllerTest {
   @WithAccount("robin")
   @DisplayName("문제 묶음 소개 수정 폼 조회")
   void viewQuestionBundleSetting() throws Exception {
-    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.TZ1, QuestionBundlePaper.P1);
+    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     questionBundleService.add(questionBundle);
 
     mockMvc.perform(get("/question_bundle/" + questionBundle.getId() + "/settings/description"))
@@ -46,14 +46,14 @@ class QuestionBundleSettingControllerTest extends BaseControllerTest {
   @WithAccount("robin")
   @DisplayName("문제 묶음 소개 수정 폼 조회")
   void updateQuestionBundleInfo() throws Exception {
-    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.TZ1, QuestionBundlePaper.P1);
+    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     questionBundleService.add(questionBundle);
 
     String settingsDescriptionUrl = "/question_bundle/" + questionBundle.getId() + "/settings/description";
     mockMvc.perform(post(settingsDescriptionUrl)
             .param("year", "2007")
             .param("month", "5")
-            .param("timeZone", QuestionBundleTimeZone.TZ1.toString())
+            .param("timeZone", QuestionBundleTimeZone.T1.toString())
             .param("paper", QuestionBundlePaper.P1.toString())
             .with(csrf()))
             .andExpect(status().is3xxRedirection())

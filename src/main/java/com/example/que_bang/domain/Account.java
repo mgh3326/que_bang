@@ -61,9 +61,6 @@ public class Account extends BaseTimeEntity{
   private boolean studyUpdatedByWeb = true;
 
   @ManyToMany
-  private Set<Topic> topics = new HashSet<>();
-
-  @ManyToMany
   private Set<Zone> zones = new HashSet<>();
 
   public void generateEmailCheckToken() {

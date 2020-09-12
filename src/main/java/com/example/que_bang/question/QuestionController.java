@@ -2,9 +2,11 @@ package com.example.que_bang.question;
 
 import com.example.que_bang.account.CurrentAccount;
 import com.example.que_bang.domain.Account;
+import com.example.que_bang.domain.Question;
 import com.example.que_bang.domain.QuestionBundle;
-import com.example.que_bang.question_bundle.QuestionBundleService;
+import com.example.que_bang.question.form.QuestionForm;
 import com.example.que_bang.question_bundle.form.QuestionBundleForm;
+import com.example.que_bang.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 
-//@Controller
-//@RequiredArgsConstructor
-//public class QuestionController {
-//  private final QuestionController questionController;
-//  private final ModelMapper modelMapper;
-//}
+@Controller
+@RequiredArgsConstructor
+public class QuestionController {
+  private final QuestionService questionService;
+
+  @PostMapping("/new-question")
+  public String newQuestionSubmit(@CurrentAccount Account account, @Valid QuestionForm questionForm, Errors errors, Model model) {
+    if (errors.hasErrors()) {
+      model.addAttribute(account);
+      return "question/form";
+    }
+    Long newQuestionId = questionService.add(questionService.formMapper(questionForm));
+    return "redirect:/question/" + newQuestionId.toString();
+  }
+
+  @GetMapping("/question/{id}")
+  public String viewQuestion(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    Question question = questionService.findOne(id);
+    model.addAttribute(account);
+    model.addAttribute("question", question);
+    return "question/view";
+  }
+}

@@ -25,8 +25,6 @@ class QuestionBundleControllerTest extends BaseControllerTest {
   protected MockMvc mockMvc;
   @Autowired
   protected QuestionBundleService questionBundleService;
-  @Autowired
-  protected QuestionBundleRepository questionBundleRepository;
 
   @Test
   @WithAccount("robin")
@@ -46,7 +44,7 @@ class QuestionBundleControllerTest extends BaseControllerTest {
     mockMvc.perform(post("/new-question_bundle")
             .param("year", "2020")
             .param("month", "5")
-            .param("timeZone", String.valueOf(QuestionBundleTimeZone.TZ0))
+            .param("timeZone", String.valueOf(QuestionBundleTimeZone.T0))
             .param("paper", String.valueOf(QuestionBundlePaper.P1))
             .with(csrf()))
             .andExpect(status().is3xxRedirection())
@@ -61,7 +59,7 @@ class QuestionBundleControllerTest extends BaseControllerTest {
     mockMvc.perform(post("/new-question_bundle")
             .param("year", "2020")
             .param("month", "5")
-            .param("timeZone", String.valueOf(QuestionBundleTimeZone.TZ0))
+            .param("timeZone", String.valueOf(QuestionBundleTimeZone.T0))
 //            .param("paper", String.valueOf(QuestionBundlePaper.P1))
             .with(csrf()))
             .andExpect(status().isOk())
@@ -75,7 +73,7 @@ class QuestionBundleControllerTest extends BaseControllerTest {
   @WithAccount("robin")
   @DisplayName("문제 묶음 개설 폼 조회")
   void viewQuestionBundle() throws Exception {
-    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.TZ1, QuestionBundlePaper.P1);
+    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     questionBundleService.add(questionBundle);
     mockMvc.perform(get(String.format("/question_bundle/%d", questionBundle.getId())))
             .andExpect(status().isOk())
@@ -87,8 +85,8 @@ class QuestionBundleControllerTest extends BaseControllerTest {
   @Test
   @WithAccount("robin")
   @DisplayName("문제 개설 폼 조회")
-  void viewQuestion() throws Exception {
-    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.TZ1, QuestionBundlePaper.P1);
+  void createQuestionForm() throws Exception {
+    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     questionBundleService.add(questionBundle);
     mockMvc.perform(get(String.format("/question_bundle/%d/new-question", questionBundle.getId())))
             .andExpect(status().isOk())

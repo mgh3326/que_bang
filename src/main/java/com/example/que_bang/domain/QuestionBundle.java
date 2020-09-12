@@ -6,11 +6,9 @@ import com.example.que_bang.domain.test_paper.TestPaperQuestionBundle;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,7 +61,7 @@ public class QuestionBundle extends BaseTimeEntity {
   }
 
   public void addQuestion(Question question) {
-    question.setWeight(this.generateMinQuestionWeight());
+    question.setWeight(this.generateMinQuestionScore());
     this.questions.add(question);
     question.setQuestionBundle(this);
   }
@@ -71,7 +69,7 @@ public class QuestionBundle extends BaseTimeEntity {
   public final static Double defaultQuestionWeight = 1.0;
   public final static Double questionWeightInterval = 0.01;
 
-  public Double generateMinQuestionWeight() {
+  public Double generateMinQuestionScore() {
     Optional<Double> min = questions.stream().map(Question::getWeight).min(Double::compareTo);
     return min.map(aDouble -> aDouble - questionWeightInterval).orElse(defaultQuestionWeight);
   }

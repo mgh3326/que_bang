@@ -1,14 +1,14 @@
 package com.example.que_bang.domain;
 
-import com.example.que_bang.domain.question.Essay;
+import com.example.que_bang.domain.question.QuestionMainTopic;
+import com.example.que_bang.domain.question.QuestionSubTopic;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import static com.example.que_bang.domain.QuestionBundle.defaultQuestionWeight;
 import static javax.persistence.FetchType.LAZY;
 
 
@@ -25,11 +25,14 @@ public abstract class Question extends BaseTimeEntity {
   @Column(name = "question_id")
   private Long id;
   @Lob
+  @Basic(fetch = FetchType.EAGER)
   private String content;
-  private Double score = 1.0;
-  private Double weight;
-  @ManyToMany(mappedBy = "questions")
-  private List<Topic> topics = new ArrayList<>();
+  private Double score;
+  private Double weight = defaultQuestionWeight;
+  @Enumerated(EnumType.STRING)
+  private QuestionMainTopic mainTopic;
+  @Enumerated(EnumType.STRING)
+  private QuestionSubTopic subTopic;
 
   @Embedded
   private Answer answer;
@@ -38,9 +41,11 @@ public abstract class Question extends BaseTimeEntity {
   @JoinColumn(name = "question_bundle_id")
   private QuestionBundle questionBundle;
 
-  public Question(String content, Double weight, Answer answer) {
+  public Question(String content, Double score, Answer answer, QuestionMainTopic mainTopic, QuestionSubTopic subTopic) {
     this.content = content;
-    this.weight = weight;
+    this.score = score;
     this.answer = answer;
+    this.mainTopic = mainTopic;
+    this.subTopic = subTopic;
   }
 }
