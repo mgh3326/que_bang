@@ -239,13 +239,22 @@
     <script src="/node_modules/summernote/dist/summernote-bs4.js"></script>
     <script type="application/javascript">
         $(function () {
-            $('#fullDescription').summernote({
+            $('#content').summernote({
                 fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Noto Sans KR', 'Merriweather'],
-                placeholder: '문제의 목표, 일정, 진행 방식, 사용할 교재 또는 인터넷 강좌 그리고 모집중인 문제원 등 문제에 대해 자세히 적어 주세요.',
+                placeholder: '문제 내용을 입력하세요.',
                 tabsize: 2,
                 height: 300
             });
         });
+        $(function () {
+            $('#answerContent').summernote({
+                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Noto Sans KR', 'Merriweather'],
+                placeholder: '정답 내용을 입력하세요.',
+                tabsize: 2,
+                height: 300
+            });
+        });
+
     </script>
 </div>
 

@@ -3,6 +3,7 @@ package com.example.que_bang.question_bundle;
 import com.example.que_bang.account.CurrentAccount;
 import com.example.que_bang.domain.Account;
 import com.example.que_bang.domain.QuestionBundle;
+import com.example.que_bang.question.form.QuestionForm;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -52,7 +53,7 @@ public class QuestionBundleController {
     QuestionBundle questionBundle = questionBundleService.findOne(id);
     model.addAttribute(account);
     model.addAttribute(questionBundle);
-
+    model.addAttribute(new QuestionForm());
     return "question/form";
   }
 }

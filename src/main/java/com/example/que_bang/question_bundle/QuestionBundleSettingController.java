@@ -24,7 +24,7 @@ public class QuestionBundleSettingController {
   private final ObjectMapper objectMapper;
 
   @GetMapping("/description")
-  public String viewStudySetting(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+  public String viewQuestionBundleSetting(@CurrentAccount Account account, @PathVariable Long id, Model model) {
     QuestionBundle questionBundle = questionBundleService.findOne(id);
     model.addAttribute(account);
     model.addAttribute(questionBundle);
@@ -32,10 +32,10 @@ public class QuestionBundleSettingController {
     return "question_bundle/settings/description";
   }
 
-  @PutMapping("/description")
-  public String updateStudyInfo(@CurrentAccount Account account, @PathVariable Long id,
-                                @Valid QuestionBundleForm questionBundleForm, Errors errors,
-                                Model model, RedirectAttributes attributes) {
+  @PostMapping("/description")
+  public String updateQuestionBundleInfo(@CurrentAccount Account account, @PathVariable Long id,
+                                         @Valid QuestionBundleForm questionBundleForm, Errors errors,
+                                         Model model, RedirectAttributes attributes) {
     QuestionBundle questionBundle = questionBundleService.findOne(id);
 
     if (errors.hasErrors()) {
@@ -43,7 +43,7 @@ public class QuestionBundleSettingController {
       model.addAttribute(questionBundle);
       return "question_bundle/settings/description";
     }
-    questionBundleService.updateQuestionBundleDescription(questionBundle, questionBundleForm);
+    questionBundleService.updateQuestionBundleDescription(id, questionBundleForm);
     attributes.addFlashAttribute("message", "문제 묶음을 수정했습니다.");
     return "redirect:/question_bundle/" + questionBundle.getId() + "/settings/description";
   }

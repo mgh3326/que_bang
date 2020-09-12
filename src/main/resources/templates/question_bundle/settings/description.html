@@ -10,8 +10,8 @@
         <div class="col-10">
             <div th:replace="fragments.html :: message"></div>
             <form class="needs-validation"
-                  th:action="@{'/questionBundle/' + ${questionBundle.getId()} + '/settings/description'}"
-                  th:object="${questionBundleForm}" method="put" novalidate>
+                  th:action="@{'/question_bundle/' + ${questionBundle.getId()} + '/settings/description'}"
+                  th:object="${questionBundleForm}" method="post" novalidate>
                 <div class="form-group">
                     <label for="year">연도</label>
                     <input id="year" type="text" th:field="*{year}" class="form-control"

@@ -83,4 +83,18 @@ class QuestionBundleControllerTest extends BaseControllerTest {
             .andExpect(model().attributeExists("account"))
             .andExpect(model().attributeExists("questionBundle"));
   }
+
+  @Test
+  @WithAccount("robin")
+  @DisplayName("문제 개설 폼 조회")
+  void viewQuestion() throws Exception {
+    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.TZ1, QuestionBundlePaper.P1);
+    questionBundleService.add(questionBundle);
+    mockMvc.perform(get(String.format("/question_bundle/%d/new-question", questionBundle.getId())))
+            .andExpect(status().isOk())
+            .andExpect(view().name("question/form"))
+            .andExpect(model().attributeExists("account"))
+            .andExpect(model().attributeExists("questionForm"))
+            .andExpect(model().attributeExists("questionBundle"));
+  }
 }

@@ -25,7 +25,8 @@ public class QuestionBundleService {
   }
 
   @Transactional
-  public void updateQuestionBundleDescription(QuestionBundle questionBundle, QuestionBundleForm questionBundleForm) {
-    modelMapper.map(questionBundle, questionBundleForm);
+  public void updateQuestionBundleDescription(Long questionBundleId, QuestionBundleForm questionBundleForm) {
+    QuestionBundle questionBundle = findOne(questionBundleId);
+    modelMapper.map(questionBundleForm, questionBundle);
   }
 }

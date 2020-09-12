@@ -12,8 +12,7 @@ import javax.validation.constraints.Pattern;
 @Data
 public class QuestionBundleForm {
   @NotNull
-  @PastOrPresent
-  private java.time.Year year;
+  private Integer year;
   @NotNull
 //  @Pattern(regexp = "^5$|^11$", message = "month는 5와 11만 가능합니다.")
   private Integer month;

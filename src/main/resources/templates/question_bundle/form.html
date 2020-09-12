@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label for="year">연도</label>
                 <input id="year" type="text" th:field="*{year}" class="form-control"
-                       placeholder="연도" aria-describedby="yearHelp" required max="4">
+                       placeholder="2020" aria-describedby="yearHelp" required max="4">
                 <small id="yearHelp" class="form-text text-muted">
                     연도를 입력하세요.(예시: 2020)
                 </small>
@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="month">월</label>
                 <input id="month" type="text" th:field="*{month}" class="form-control"
-                       placeholder="월" aria-describedby="monthHelp" required max="1">
+                       placeholder="5" aria-describedby="monthHelp">
                 <small id="monthHelp" class="form-text text-muted">
                     월을 입력하세요.(예시: 5,11)
                 </small>
@@ -40,32 +40,33 @@
                 <label for="timeZone">타임존</label>
                 <select th:field="*{timeZone}" class="custom-select mr-sm-2" id="timeZone"
                         aria-describedby="timeZoneHelp" name="timeZone">
-                    <option th:each="timeZoneOpt : ${T(com.example.que_bang.domain.question_bundle.QuestionBundleTimeZone).values()}"
-                            th:value="${timeZoneOpt}" th:text="${timeZoneOpt}"></option>
+                    <option th:each="timeZone : ${T(com.example.que_bang.domain.question_bundle.QuestionBundleTimeZone).values()}"
+                            th:value="${timeZone}" th:text="${timeZone.getDisplayValue()}"></option>
                 </select>
                 <small id="timeZoneHelp" class="form-text text-muted">
-                    타임존 설명<br/>
-                    <strong>TZ1</strong>blah blah<br/>
-                    <strong>TZ2</strong>blah blah
+                    타임존을 선택해주세요
                 </small>
+                <small class="invalid-feedback">타임존을 입력하세요.</small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('timeZone')}" th:errors="*{timeZone}">Paper
+                    Error</small>
             </div>
             <div class="form-group">
                 <label for="paper">페이퍼</label>
                 <select th:field="*{paper}" class="custom-select mr-sm-2" id="paper"
                         aria-describedby="paperHelp" name="Paper">
-                    <option th:each="paperOpt : ${T(com.example.que_bang.domain.question_bundle.QuestionBundlePaper).values()}"
-                            th:value="${paperOpt}" th:text="${paperOpt}"></option>
+                    <option th:each="paper : ${T(com.example.que_bang.domain.question_bundle.QuestionBundlePaper).values()}"
+                            th:value="${paper}" th:text="${paper.getDisplayValue()}"></option>
                 </select>
                 <small id="paperHelp" class="form-text text-muted">
-                    페이퍼 설명<br/>
-                    <strong>P1</strong>blah blah<br/>
-                    <strong>P2</strong>blah blah<br/>
-                    <strong>P3</strong>blah blah
+                    페이퍼 선택해주세요
                 </small>
+                <small class="invalid-feedback">페이퍼를 입력하세요.</small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('paper')}" th:errors="*{paper}">Paper
+                    Error</small>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit"
-                        aria-describedby="submitHelp">문제 그룹 만들기
+                        aia-describedby="submitHelp">문제 묶음 만들기
                 </button>
             </div>
         </form>
