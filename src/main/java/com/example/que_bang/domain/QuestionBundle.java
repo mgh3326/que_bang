@@ -61,18 +61,13 @@ public class QuestionBundle extends BaseTimeEntity {
   }
 
   public void addQuestion(Question question) {
-    question.setWeight(this.generateMinQuestionScore());
+    question.setWeight(this.generateMinWeight());
     this.questions.add(question);
     question.setQuestionBundle(this);
   }
 
-  public final static Double defaultQuestionWeight = 1.0;
-  public final static Double questionWeightInterval = 0.01;
-
-  public Double generateMinQuestionScore() {
-    Optional<Double> min = questions.stream().map(Question::getWeight).min(Double::compareTo);
-    return min.map(aDouble -> aDouble - questionWeightInterval).orElse(defaultQuestionWeight);
-  }
+  public final static Double defaultWeight = 1.0;
+  public final static Double weightInterval = 0.01;
 
   @Override
   public String toString() {
@@ -81,5 +76,10 @@ public class QuestionBundle extends BaseTimeEntity {
 
   public String getName() {
     return String.format("%d/%d/%s/%s", year, month, timeZone, paper);
+  }
+
+  private Double generateMinWeight() {
+    Optional<Double> min = questions.stream().map(Question::getWeight).min(Double::compareTo);
+    return min.map(aDouble -> aDouble - weightInterval).orElse(defaultWeight);
   }
 }

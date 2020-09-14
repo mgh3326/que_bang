@@ -5,10 +5,8 @@ import com.example.que_bang.domain.question.QuestionSubTopic;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-import static com.example.que_bang.domain.QuestionBundle.defaultQuestionWeight;
+import static com.example.que_bang.domain.QuestionBundle.defaultWeight;
 import static javax.persistence.FetchType.LAZY;
 
 
@@ -28,7 +26,7 @@ public abstract class Question extends BaseTimeEntity {
   @Basic(fetch = FetchType.EAGER)
   private String content;
   private Double score;
-  private Double weight = defaultQuestionWeight;
+  private Double weight = defaultWeight;
   @Enumerated(EnumType.STRING)
   private QuestionMainTopic mainTopic;
   @Enumerated(EnumType.STRING)

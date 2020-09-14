@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import static com.example.que_bang.domain.QuestionBundle.defaultWeight;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -20,6 +21,7 @@ public class TestPaperQuestionBundle extends BaseTimeEntity {
   @GeneratedValue
   @Column(name = "test_paper_question_bundle_id")
   private Long id;
+  private Double weight = defaultWeight;
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "test_paper_id")
   private TestPaper testPaper;

@@ -8,6 +8,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static com.example.que_bang.domain.QuestionBundle.defaultWeight;
+import static com.example.que_bang.domain.QuestionBundle.weightInterval;
 
 
 @Entity
@@ -16,7 +20,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class TestPaper extends BaseTimeEntity{
+public class TestPaper extends BaseTimeEntity {
   @Id
   @GeneratedValue
   @Column(name = "test_paper_id")
@@ -27,6 +31,7 @@ public class TestPaper extends BaseTimeEntity{
   private TestPaperStatus status; // READY, COMP (진행중, 완료됨)
 
   @OneToMany(mappedBy = "testPaper")
+  @OrderBy("weight ASC")
   private List<TestPaperQuestionBundle> testPaperQuestionBundles = new ArrayList<>();
 
   public static TestPaper createTestPaper(String title, @NotNull TestPaperStatus status) {
@@ -45,7 +50,13 @@ public class TestPaper extends BaseTimeEntity{
   }
 
   public void addTestPaperQuestionBundle(TestPaperQuestionBundle testPaperQuestionBundle) {
+    testPaperQuestionBundle.setWeight(this.generateMinWeight());
     this.testPaperQuestionBundles.add(testPaperQuestionBundle);
     testPaperQuestionBundle.setTestPaper(this);
+  }
+
+  public Double generateMinWeight() {
+    Optional<Double> min = testPaperQuestionBundles.stream().map(TestPaperQuestionBundle::getWeight).min(Double::compareTo);
+    return min.map(aDouble -> aDouble - weightInterval).orElse(defaultWeight);
   }
 }
