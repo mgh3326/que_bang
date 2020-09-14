@@ -29,7 +29,7 @@ public class QuestionController {
       model.addAttribute(account);
       return "question/form";
     }
-    Long newQuestionId = questionService.add(questionService.formMapper(questionForm));
+    Long newQuestionId = questionService.addForm(questionForm);
     return "redirect:/question/" + newQuestionId.toString();
   }
 

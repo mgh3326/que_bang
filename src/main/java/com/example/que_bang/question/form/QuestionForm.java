@@ -19,10 +19,4 @@ public class QuestionForm {
   private String answerContent;
   @NotNull
   private Long questionBundleId;
-
-  public static QuestionForm createWithQuestionBundleId(Long questionBundleId) {
-    QuestionForm questionForm = new QuestionForm();
-    questionForm.setQuestionBundleId(questionBundleId);
-    return questionForm;
-  }
 }

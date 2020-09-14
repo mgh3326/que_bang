@@ -33,6 +33,14 @@ public class QuestionService {
     return question.getId();
   }
 
+  @Transactional
+  public Long addForm(QuestionForm questionForm) {
+    Question question = formMapper(questionForm);
+    questionRepository.save(question);
+
+    return question.getId();
+  }
+
   public Question findOne(Long id) {
     return questionRepository.findById(id).orElseThrow();
   }
@@ -42,6 +50,8 @@ public class QuestionService {
     Question question = getQuestion(questionForm);
     question.setContent(questionForm.getContent());
     question.setScore(questionForm.getScore());
+    question.setMainTopic(questionForm.getMainTopic());
+    question.setSubTopic(questionForm.getSubTopic());
     question.setAnswer(Answer.createAnswer(questionForm.getAnswerContent()));
     QuestionBundle questionBundle = questionBundleService.findOne(questionForm.getQuestionBundleId());
     questionBundle.addQuestion(question);

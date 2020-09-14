@@ -14,10 +14,14 @@
               novalidate>
             <div class="form-group">
                 <label for="year">연도</label>
-                <input id="year" type="text" th:field="*{year}" class="form-control"
-                       placeholder="2020" aria-describedby="yearHelp" required max="4">
+                <select th:field="*{year}" class="custom-select mr-sm-2" id="year"
+                        aria-describedby="yearHelp" name="Year">
+                    <option th:each="year : ${yearList}"
+                            th:value="${year}" th:text="${year}">
+                    </option>
+                </select>
                 <small id="yearHelp" class="form-text text-muted">
-                    연도를 입력하세요.(예시: 2020)
+                    연도를 선택하세요
                 </small>
                 <small class="invalid-feedback">연도를 입력하세요.</small>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year
@@ -26,10 +30,14 @@
 
             <div class="form-group">
                 <label for="month">월</label>
-                <input id="month" type="text" th:field="*{month}" class="form-control"
-                       placeholder="5" aria-describedby="monthHelp">
+                <select th:field="*{month}" class="custom-select mr-sm-2" id="month"
+                        aria-describedby="yearHelp" name="Month">
+                    <option th:each="month : ${monthList}"
+                            th:value="${month}" th:text="${month}">
+                    </option>
+                </select>
                 <small id="monthHelp" class="form-text text-muted">
-                    월을 입력하세요.(예시: 5,11)
+                    월을 입력하세요.
                 </small>
                 <small class="invalid-feedback">월을 입력하세요.</small>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('month')}"
