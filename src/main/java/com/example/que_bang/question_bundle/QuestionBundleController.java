@@ -62,8 +62,17 @@ public class QuestionBundleController {
   public String newQuestionForm(@CurrentAccount Account account, @PathVariable Long id, Model model) {
     QuestionBundle questionBundle = questionBundleService.findOne(id);
     model.addAttribute(account);
-    model.addAttribute("questionBundle",questionBundle);
+    model.addAttribute("questionBundle", questionBundle);
     model.addAttribute(new QuestionForm());
     return "question/form";
   }
+
+  @PostMapping("/question_bundle/{id}/new-test_paper")
+  public String newTestPaper(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    QuestionBundle questionBundle = questionBundleService.findOne(id);
+    model.addAttribute(account);
+    model.addAttribute(questionBundle);
+    return "redirect:/question_bundle/" + id;
+  }
+
 }

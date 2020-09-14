@@ -15,11 +15,11 @@ import javax.persistence.Entity;
 @Setter
 @NoArgsConstructor
 public class MultipleChoice extends Question {
-  public MultipleChoice(String content, Double score, Answer answer, QuestionMainTopic mainTopic, QuestionSubTopic subTopic) {
-    super(content, score, answer, mainTopic, subTopic);
+  public MultipleChoice(String content, Double score, String answerContent, QuestionMainTopic mainTopic, QuestionSubTopic subTopic) {
+    super(content, score, answerContent, mainTopic, subTopic);
   }
 
   public static MultipleChoice createMultipleChoiceWithAnswerContent(String content, double score, String answerContent, QuestionMainTopic mainTopic, QuestionSubTopic subTopic) {
-    return new MultipleChoice(content, score, new Answer(answerContent), mainTopic, subTopic);
+    return new MultipleChoice(content, score, answerContent, mainTopic, subTopic);
   }
 }

@@ -66,8 +66,7 @@ class QuestionControllerTest extends BaseControllerTest {
     QuestionMainTopic mainTopic = QuestionMainTopic.M1;
     QuestionSubTopic subTopic = QuestionSubTopic.S1;
     String answer_content = "answer_content";
-    Answer answer = new Answer(answer_content);
-    Essay essay = new Essay(content, score, answer, mainTopic, subTopic);
+    Essay essay = new Essay(content, score, answer_content, mainTopic, subTopic);
     questionService.add(essay);
     questionBundle.addQuestion(essay);
     mockMvc.perform(get("/question/" + essay.getId().toString()))

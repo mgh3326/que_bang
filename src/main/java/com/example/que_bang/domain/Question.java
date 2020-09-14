@@ -9,7 +9,10 @@ import javax.persistence.*;
 import static com.example.que_bang.domain.QuestionBundle.defaultWeight;
 import static javax.persistence.FetchType.LAZY;
 
-
+@NamedEntityGraph(
+        name = "Question.withQuestionBundle",
+        attributeNodes = @NamedAttributeNode("questionBundle")
+)
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
@@ -33,17 +36,21 @@ public abstract class Question extends BaseTimeEntity {
   private QuestionSubTopic subTopic;
 
   @Embedded
-  private Answer answer;
+  private Answer answer = new Answer();
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "question_bundle_id")
   private QuestionBundle questionBundle;
 
-  public Question(String content, Double score, Answer answer, QuestionMainTopic mainTopic, QuestionSubTopic subTopic) {
+  public Question(String content, Double score, String answerContent, QuestionMainTopic mainTopic, QuestionSubTopic subTopic) {
     this.content = content;
     this.score = score;
-    this.answer = answer;
+    this.answer.setContent(answerContent);
     this.mainTopic = mainTopic;
     this.subTopic = subTopic;
+  }
+
+  public String getTitle() {
+    return String.format("%d/%s/%s", id, mainTopic, subTopic);
   }
 }

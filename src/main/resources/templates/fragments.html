@@ -52,6 +52,10 @@
         .popover {
             font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
+
+        table th {
+            font-weight: lighter;
+        }
     </style>
 </head>
 
@@ -179,12 +183,38 @@
                     class="btn-group" role="group">
                     <a class="btn btn-primary"
                        th:href="@{'/question_bundle/' + ${questionBundle.getId()} + '/new-question'}">
-                        문제 추가
+                                                <i class="fa fa-plus-circle"></i> 문제 추가
                     </a>
                 </span>
-
+            <span>
+                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#add_test_paper">
+                        <i class="fa fa-plus-circle"></i> 문제지에 추가
+                    </button>
+                </span>
         </div>
-
+        <div class="modal fade" id="add_test_paper" tabindex="-1" role="dialog" aria-labelledby="addTestPaperTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addTestPaperTitle" th:text="${questionBundle.getTitle()}"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>문제지에 문제를 추가해주세요</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        <form th:action="@{'/question_bundle/' + ${questionBundle.getId()} + '/new-test_paper'}"
+                              method="post">
+                            <button class="btn btn-primary" type="submit" aria-describedby="submitHelp">확인</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row justify-content-center bg-light">
         <div class="col-10">
@@ -257,6 +287,35 @@
             });
         });
 
+    </script>
+</div>
+<div th:fragment="date-time">
+    <script src="/node_modules/moment/min/moment-with-locales.min.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            moment.locale('ko');
+            $(".date-time").text(function (index, dateTime) {
+                return moment(dateTime, "YYYY-MM-DD`T`hh:mm").format('LLL');
+            });
+            $(".date").text(function (index, dateTime) {
+                return moment(dateTime, "YYYY-MM-DD`T`hh:mm").format('LL');
+            });
+            $(".weekday").text(function (index, dateTime) {
+                return moment(dateTime, "YYYY-MM-DD`T`hh:mm").format('dddd');
+            });
+            $(".time").text(function (index, dateTime) {
+                return moment(dateTime, "YYYY-MM-DD`T`hh:mm").format('LT');
+            });
+            $(".calendar").text(function (index, dateTime) {
+                return moment(dateTime, "YYYY-MM-DD`T`hh:mm").calendar();
+            });
+            $(".fromNow").text(function (index, dateTime) {
+                return moment(dateTime, "YYYY-MM-DD`T`hh:mm").fromNow();
+            });
+            $(".date-weekday-time").text(function (index, dateTime) {
+                return moment(dateTime, "YYYY-MM-DD`T`hh:mm").format('LLLL');
+            });
+        })
     </script>
 </div>
 

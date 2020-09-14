@@ -71,10 +71,10 @@ public class QuestionBundle extends BaseTimeEntity {
 
   @Override
   public String toString() {
-    return getName();
+    return getTitle();
   }
 
-  public String getName() {
+  public String getTitle() {
     return String.format("%d/%d/%s/%s", year, month, timeZone, paper);
   }
 

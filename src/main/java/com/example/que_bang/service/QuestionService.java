@@ -44,6 +44,9 @@ public class QuestionService {
   public Question findOne(Long id) {
     return questionRepository.findById(id).orElseThrow();
   }
+  public Question findOneWithQuestionBundle(Long id) {
+    return questionRepository.findWithQuestionBundleById(id).orElseThrow();
+  }
 
   public Question formMapper(QuestionForm questionForm) {
 

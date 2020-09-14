@@ -14,11 +14,11 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Essay extends Question {
 
-  public Essay(String content, Double score, Answer answer, QuestionMainTopic mainTopic, QuestionSubTopic subTopic) {
-    super(content, score, answer, mainTopic, subTopic);
+  public Essay(String content, Double score, String answerContent, QuestionMainTopic mainTopic, QuestionSubTopic subTopic) {
+    super(content, score, answerContent, mainTopic, subTopic);
   }
 
   public static Essay createEssayWithAnswerContent(String content, double score, String answerContent, QuestionMainTopic mainTopic, QuestionSubTopic subTopic) {
-    return new Essay(content, score, new Answer(answerContent), mainTopic, subTopic);
+    return new Essay(content, score, answerContent, mainTopic, subTopic);
   }
 }

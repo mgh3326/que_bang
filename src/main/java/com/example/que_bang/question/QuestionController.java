@@ -35,8 +35,9 @@ public class QuestionController {
 
   @GetMapping("/question/{id}")
   public String viewQuestion(@CurrentAccount Account account, @PathVariable Long id, Model model) {
-    Question question = questionService.findOne(id);
+    Question question = questionService.findOneWithQuestionBundle(id);
     model.addAttribute(account);
+    model.addAttribute(question.getQuestionBundle());
     model.addAttribute("question", question);
     return "question/view";
   }
