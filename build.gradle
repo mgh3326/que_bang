@@ -34,7 +34,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testCompileOnly 'org.projectlombok:lombok'
@@ -45,6 +44,9 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.2'
+    testCompile 'com.tngtech.archunit:archunit-junit5:0.13.1'
+    testCompile 'org.testcontainers:junit-jupiter:1.13.0'
+    testCompile "org.testcontainers:mysql:1.14.3"
 }
 
 test {
