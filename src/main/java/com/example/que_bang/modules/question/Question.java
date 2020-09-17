@@ -1,7 +1,6 @@
 package com.example.que_bang.modules.question;
 
 import com.example.que_bang.modules.common.BaseTimeEntity;
-import com.example.que_bang.modules.common.Weight;
 import com.example.que_bang.modules.question_bundle.QuestionBundle;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import static com.example.que_bang.modules.question_bundle.QuestionBundle.defaultWeight;
 import static javax.persistence.FetchType.LAZY;
 
 @NamedEntityGraph(
@@ -32,8 +32,7 @@ public abstract class Question extends BaseTimeEntity {
   @Basic(fetch = FetchType.EAGER)
   private String content;
   private Double score;
-  @Embedded
-  private Weight weight = Weight.createWeight();
+  private Double weight = defaultWeight;
   @Enumerated(EnumType.STRING)
   private QuestionMainTopic mainTopic;
   @Enumerated(EnumType.STRING)
