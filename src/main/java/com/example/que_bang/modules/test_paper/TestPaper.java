@@ -1,6 +1,7 @@
 package com.example.que_bang.modules.test_paper;
 
 import com.example.que_bang.modules.common.BaseTimeEntity;
+import com.example.que_bang.modules.common.Weight;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.que_bang.modules.question_bundle.QuestionBundle.defaultWeight;
-import static com.example.que_bang.modules.question_bundle.QuestionBundle.weightInterval;
 
 
 @Entity
@@ -49,13 +48,13 @@ public class TestPaper extends BaseTimeEntity {
   }
 
   public void addTestPaperQuestionBundle(TestPaperQuestionBundle testPaperQuestionBundle) {
-    testPaperQuestionBundle.setWeight(this.generateMinWeight());
+    testPaperQuestionBundle.getWeight().setValue(this.generateMinWeight());
     this.testPaperQuestionBundles.add(testPaperQuestionBundle);
     testPaperQuestionBundle.setTestPaper(this);
   }
 
   public Double generateMinWeight() {
-    Optional<Double> min = testPaperQuestionBundles.stream().map(TestPaperQuestionBundle::getWeight).min(Double::compareTo);
-    return min.map(aDouble -> aDouble - weightInterval).orElse(defaultWeight);
+    Optional<Double> min = testPaperQuestionBundles.stream().map(question -> question.getWeight().getValue()).min(Double::compareTo);
+    return min.map(aDouble -> aDouble - Weight.weightInterval).orElse(Weight.defaultWeight);
   }
 }

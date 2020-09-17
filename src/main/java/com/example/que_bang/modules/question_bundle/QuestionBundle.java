@@ -1,6 +1,7 @@
 package com.example.que_bang.modules.question_bundle;
 
 import com.example.que_bang.modules.common.BaseTimeEntity;
+import com.example.que_bang.modules.common.Weight;
 import com.example.que_bang.modules.question.Question;
 import com.example.que_bang.modules.test_paper.TestPaperQuestionBundle;
 import lombok.*;
@@ -60,13 +61,10 @@ public class QuestionBundle extends BaseTimeEntity {
   }
 
   public void addQuestion(Question question) {
-    question.setWeight(this.generateMinWeight());
+    question.getWeight().setValue(this.generateMinWeight());
     this.questions.add(question);
     question.setQuestionBundle(this);
   }
-
-  public final static Double defaultWeight = 1.0;
-  public final static Double weightInterval = 0.01;
 
   @Override
   public String toString() {
@@ -78,7 +76,7 @@ public class QuestionBundle extends BaseTimeEntity {
   }
 
   private Double generateMinWeight() {
-    Optional<Double> min = questions.stream().map(Question::getWeight).min(Double::compareTo);
-    return min.map(aDouble -> aDouble - weightInterval).orElse(defaultWeight);
+    Optional<Double> min = questions.stream().map(question -> question.getWeight().getValue()).min(Double::compareTo);
+    return min.map(aDouble -> aDouble - Weight.weightInterval).orElse(Weight.defaultWeight);
   }
 }
