@@ -45,7 +45,7 @@ dependencies {
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.2'
     testCompile 'com.tngtech.archunit:archunit-junit5:0.13.1'
-    testCompile 'org.testcontainers:junit-jupiter:1.13.0'
+    testCompile 'org.testcontainers:junit-jupiter:1.14.3'
     testCompile "org.testcontainers:mysql:1.14.3"
 }
 
