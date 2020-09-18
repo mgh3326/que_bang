@@ -5,6 +5,8 @@ import com.example.que_bang.modules.question.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.example.que_bang.modules.common.BaseWeightEntity.defaultWeight;
+import static com.example.que_bang.modules.common.BaseWeightEntity.weightInterval;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class QuestionBundleServiceTest extends BaseServiceTest {
@@ -34,8 +36,8 @@ class QuestionBundleServiceTest extends BaseServiceTest {
     QuestionBundle questionBundle1 = questionBundleService.findOne(questionBundle.getId());
     assertEquals(essay, questionBundle1.getQuestions().get(0));
     assertEquals(multipleChoice, questionBundle1.getQuestions().get(1));
-    assertEquals(questionBundle1.getQuestions().get(0).getWeight(), QuestionBundle.defaultWeight);
-    assertEquals(questionBundle1.getQuestions().get(questionBundle1.getQuestions().size() - 1).getWeight(), QuestionBundle.defaultWeight - 2 * QuestionBundle.weightInterval);
+    assertEquals(questionBundle1.getQuestions().get(0).getWeight(), defaultWeight);
+    assertEquals(questionBundle1.getQuestions().get(questionBundle1.getQuestions().size() - 1).getWeight(), defaultWeight - 2 * weightInterval);
     assertEquals(shortAnswer, questionBundle1.getQuestions().get(2));
   }
 }

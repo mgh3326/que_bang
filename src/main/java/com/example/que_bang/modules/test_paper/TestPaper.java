@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.que_bang.modules.question_bundle.QuestionBundle.defaultWeight;
-import static com.example.que_bang.modules.question_bundle.QuestionBundle.weightInterval;
+import static com.example.que_bang.modules.common.BaseWeightEntity.defaultWeight;
+import static com.example.que_bang.modules.common.BaseWeightEntity.weightInterval;
 
 
 @Entity

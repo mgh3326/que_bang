@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.que_bang.modules.common.BaseWeightEntity.defaultWeight;
+import static com.example.que_bang.modules.common.BaseWeightEntity.weightInterval;
 
 @Entity
 @Getter
@@ -64,9 +66,6 @@ public class QuestionBundle extends BaseTimeEntity {
     this.questions.add(question);
     question.setQuestionBundle(this);
   }
-
-  public final static Double defaultWeight = 1.0;
-  public final static Double weightInterval = 0.01;
 
   @Override
   public String toString() {
