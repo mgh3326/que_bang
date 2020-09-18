@@ -48,7 +48,7 @@ dependencies {
     }
     testImplementation 'org.springframework.security:spring-security-test'
     testCompile 'com.tngtech.archunit:archunit-junit5:0.13.1'
-    testCompile 'org.testcontainers:junit-jupiter:1.13.0'
+    testCompile 'org.testcontainers:junit-jupiter:1.14.3'
     testCompile "org.testcontainers:mysql:1.14.3"
 }
 
