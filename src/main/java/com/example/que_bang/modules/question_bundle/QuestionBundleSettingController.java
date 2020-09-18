@@ -3,7 +3,9 @@ package com.example.que_bang.modules.question_bundle;
 import com.example.que_bang.modules.account.Account;
 import com.example.que_bang.modules.account.CurrentAccount;
 import com.example.que_bang.modules.question_bundle.form.QuestionBundleForm;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.que_bang.modules.test_paper.TestPaperService;
+import com.example.que_bang.modules.test_paper.TestPaperStatus;
+import com.example.que_bang.modules.test_paper.form.TestPaperQuestionBundleForm;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,7 @@ import javax.validation.Valid;
 public class QuestionBundleSettingController {
   private final QuestionBundleService questionBundleService;
   private final ModelMapper modelMapper;
-  private final ObjectMapper objectMapper;
+  private final TestPaperService testPaperService;
 
   @GetMapping("/description")
   public String viewQuestionBundleSetting(@CurrentAccount Account account, @PathVariable Long id, Model model) {
@@ -31,6 +33,8 @@ public class QuestionBundleSettingController {
     model.addAttribute(account);
     model.addAttribute(questionBundle);
     model.addAttribute(modelMapper.map(questionBundle, QuestionBundleForm.class));
+    model.addAttribute("testPapers", testPaperService.findAllByStatus(TestPaperStatus.READY)); // TODO 사용 안 하므로 삭제해야함
+    model.addAttribute(new TestPaperQuestionBundleForm());
     return "question_bundle/settings/description";
   }
 

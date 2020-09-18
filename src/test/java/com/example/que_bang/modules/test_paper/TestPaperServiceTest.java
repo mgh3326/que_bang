@@ -6,6 +6,7 @@ import com.example.que_bang.modules.question_bundle.QuestionBundle;
 import com.example.que_bang.modules.question_bundle.QuestionBundlePaper;
 import com.example.que_bang.modules.question_bundle.QuestionBundleService;
 import com.example.que_bang.modules.question_bundle.QuestionBundleTimeZone;
+import com.example.que_bang.modules.test_paper.query.TestPaperFlatDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -44,7 +45,7 @@ class TestPaperServiceTest extends BaseServiceTest {
     questionBundleService.add(questionBundle);
     questionBundleService.add(questionBundle2);
     TestPaperQuestionBundle testPaperQuestionBundle = TestPaperQuestionBundle.createWithQuestionBundle(questionBundle);
-    TestPaper testPaper = TestPaper.createTestPaperWithTestPaperQuestionBundles("test_paper_title", TestPaperStatus.READY, testPaperQuestionBundle);
+    TestPaper testPaper = TestPaper.createTestPaperWithTestPaperQuestionBundles("test_paper_title", testPaperQuestionBundle);
     testPaperService.add(testPaper);
     // test paper에 com.example.que_bang.modules.question_bundle 하나 더 추가
     TestPaperQuestionBundle testPaperQuestionBundle2 = TestPaperQuestionBundle.createWithQuestionBundle(questionBundle2);
@@ -56,5 +57,14 @@ class TestPaperServiceTest extends BaseServiceTest {
     assertEquals(questionBundle2, questionBundles.get(1));
     assertNotNull(testPaper1.getCreatedDate());
     assertNotNull(testPaper1.getLastModifiedDate());
+    List<TestPaperFlatDto> allByStatus = testPaperService.findAllByStatus(TestPaperStatus.READY);
+    assertNotNull(allByStatus);
+    assertEquals((long) allByStatus.get(0).questionCount, 2);
+  }
+
+  @Test
+  void findAllStatus() {
+    List<TestPaperFlatDto> allByStatus = testPaperService.findAllByStatus(TestPaperStatus.READY);
+    assertNotNull(allByStatus);
   }
 }

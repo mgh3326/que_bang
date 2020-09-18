@@ -27,21 +27,20 @@ public class TestPaper extends BaseTimeEntity {
   private String title;
   @NotNull
   @Enumerated(EnumType.STRING)
-  private TestPaperStatus status; // READY, COMP (진행중, 완료됨)
+  private TestPaperStatus status = TestPaperStatus.READY; // READY, COMP (진행중, 완료됨)
 
-  @OneToMany(mappedBy = "testPaper")
+  @OneToMany(mappedBy = "testPaper", cascade = CascadeType.ALL)
   @OrderBy("weight ASC")
   private List<TestPaperQuestionBundle> testPaperQuestionBundles = new ArrayList<>();
 
-  public static TestPaper createTestPaper(String title, @NotNull TestPaperStatus status) {
+  public static TestPaper createTestPaper(String title) {
     TestPaper testPaper = new TestPaper();
     testPaper.title = title;
-    testPaper.status = status;
     return testPaper;
   }
 
-  public static TestPaper createTestPaperWithTestPaperQuestionBundles(String title, @NotNull TestPaperStatus status, TestPaperQuestionBundle... testPaperQuestionBundles) {
-    TestPaper testPaper = createTestPaper(title, status);
+  public static TestPaper createTestPaperWithTestPaperQuestionBundles(String title, TestPaperQuestionBundle... testPaperQuestionBundles) {
+    TestPaper testPaper = createTestPaper(title);
     for (TestPaperQuestionBundle testPaperQuestionBundle : testPaperQuestionBundles) {
       testPaper.addTestPaperQuestionBundle(testPaperQuestionBundle);
     }

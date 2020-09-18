@@ -1,6 +1,5 @@
-package com.example.que_bang.modules.question;
+package com.example.que_bang.modules.test_paper;
 
-import com.example.que_bang.modules.test_paper.TestPaper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TestPaperRepository extends JpaRepository<TestPaper, Long> {

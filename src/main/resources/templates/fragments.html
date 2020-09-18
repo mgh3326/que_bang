@@ -124,7 +124,7 @@
 
 <footer th:fragment="footer">
     <div class="row justify-content-center">
-        <i class="fa fa-question-circle-o fa-3x" aria-hidden="true"> 큐뱅</i>
+        <i class="fa fa-question-circle-o fa-3x" aria-hidden="true"></i>큐뱅
         <small class="d-block mb-3 text-muted">quebang &copy; 2020</small>
     </div>
 </footer>
@@ -207,16 +207,42 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <p>문제지에 문제를 추가해주세요</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                        <form th:action="@{'/question_bundle/' + ${questionBundle.getId()} + '/new-test_paper'}"
-                              method="post">
+                    <form th:action="@{'/question_bundle/' + ${questionBundle.getId()} + '/new-test_paper_question_bundle'} "
+                          th:object="${testPaperQuestionBundleForm}" method="post">
+                        <div class="form-group">
+                            <div class="modal-body">
+                                <div class="row py-4 text-left justify-content-center bg-light">
+                                    <div class="col-6">
+                                        <p>문제지에 문제를 추가해주세요</p>
+                                    </div>
+                                    <div class="col-4 text-right justify-content-end">
+                                        <a class="btn btn-primary"
+                                           th:href="@{'/question_bundle/' + ${questionBundle.getId()} + '/new-test_paper/'}">
+                                            <i class="fa fa-plus-circle"></i> 새로운 문제지에 추가
+                                        </a>
+                                    </div>
+                                </div>
+                                <label for="year">문제지</label>
+                                <select th:field="*{testPaperId}" class="custom-select mr-sm-2" id="year"
+                                        aria-describedby="yearHelp" name="Year">
+                                    <option th:each="testPaper : ${testPapers}"
+                                            th:value="${testPaper.getId()}" th:text="${testPaper.getName()}">
+                                    </option>
+                                </select>
+                                <small id="yearHelp" class="form-text text-muted">
+                                    문제지를 선택하세요
+                                </small>
+                                <small class="invalid-feedback">문제지를 입력하세요.</small>
+                                <small class="form-text text-danger" th:if="${#fields.hasErrors('testPaperId')}"
+                                       th:errors="*{testPaperId}">TestPaper
+                                    Error</small>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                             <button class="btn btn-primary" type="submit" aria-describedby="submitHelp">확인</button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
