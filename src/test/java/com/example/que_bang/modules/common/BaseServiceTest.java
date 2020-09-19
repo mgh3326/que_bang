@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 @ActiveProfiles("test")
 @SpringBootTest
 @Transactional
-public class BaseServiceTest extends AbstractContainerBaseTest {
+public class BaseServiceTest{
   @Autowired
   protected EntityManager em;
 }
