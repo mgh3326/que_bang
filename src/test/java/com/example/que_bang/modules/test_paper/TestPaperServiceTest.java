@@ -57,14 +57,14 @@ class TestPaperServiceTest extends BaseServiceTest {
     assertEquals(questionBundle2, questionBundles.get(1));
     assertNotNull(testPaper1.getCreatedDate());
     assertNotNull(testPaper1.getLastModifiedDate());
-    List<TestPaperFlatDto> allByStatus = testPaperService.findAllByStatus(TestPaperStatus.READY);
+    List<TestPaperFlatDto> allByStatus = testPaperService.findAllByStatus(TestPaperStatus.READY, null, null);
     assertNotNull(allByStatus);
     assertEquals((long) allByStatus.get(0).questionBundleCount, 2);
   }
 
   @Test
   void findAllStatus() {
-    List<TestPaperFlatDto> allByStatus = testPaperService.findAllByStatus(TestPaperStatus.READY);
+    List<TestPaperFlatDto> allByStatus = testPaperService.findAllByStatus(TestPaperStatus.READY, null, null);
     assertNotNull(allByStatus);
   }
 }

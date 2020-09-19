@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -36,6 +38,7 @@ public class QuestionService {
   public Question findOne(Long id) {
     return questionRepository.findById(id).orElseThrow();
   }
+
   public Question findOneWithQuestionBundle(Long id) {
     return questionRepository.findWithQuestionBundleById(id).orElseThrow();
   }
@@ -53,6 +56,10 @@ public class QuestionService {
     return question;
   }
 
+  public List<Question> findAllByQuestionBundleId(Long questionBundleId) {
+    return questionRepository.findAllByQuestionBundleId(questionBundleId);
+  }
+
   private Question getQuestion(QuestionForm questionForm) {
     switch (questionForm.getType()) {
       case ESSAY:
@@ -65,4 +72,5 @@ public class QuestionService {
         throw new IllegalStateException("Unexpected value: " + questionForm.getType());
     }
   }
+
 }

@@ -28,6 +28,10 @@ public class QuestionBundleService {
     return questionBundleRepository.findById(id).orElseThrow();
   }
 
+  public QuestionBundle findOneWithQuestion(Long id) {
+    return questionBundleQueryRepository.findOneWithQuestion(id).orElseThrow();
+  }
+
   @Transactional
   public void updateQuestionBundleDescription(Long questionBundleId, QuestionBundleForm questionBundleForm) {
     QuestionBundle questionBundle = findOne(questionBundleId);

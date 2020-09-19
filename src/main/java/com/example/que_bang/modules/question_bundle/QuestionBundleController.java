@@ -7,6 +7,7 @@ import com.example.que_bang.modules.question_bundle.form.QuestionBundleForm;
 import com.example.que_bang.modules.test_paper.TestPaperService;
 import com.example.que_bang.modules.test_paper.TestPaperStatus;
 import com.example.que_bang.modules.test_paper.form.TestPaperQuestionBundleForm;
+import com.example.que_bang.modules.test_paper.query.TestPaperFlatDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -62,11 +65,9 @@ public class QuestionBundleController {
 
   @GetMapping("/question_bundle/{id}")
   public String viewQuestionBundle(@CurrentAccount Account account, @PathVariable Long id, Model model) {
-    QuestionBundle questionBundle = questionBundleService.findOne(id);
-    model.addAttribute("testPapers", testPaperService.findAllByStatus(TestPaperStatus.READY));
+    QuestionBundle questionBundle = questionBundleService.findOneWithQuestion(id);
     model.addAttribute(account);
     model.addAttribute(questionBundle);
-    model.addAttribute(new TestPaperQuestionBundleForm());
     return "question_bundle/view";
   }
 
@@ -80,21 +81,31 @@ public class QuestionBundleController {
   }
 
   @GetMapping("/question_bundle/{id}/new-test_paper")
-  public String newTestPaper(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+  public String newTestPaper(@CurrentAccount Account account, @PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
     QuestionBundle questionBundle = questionBundleService.findOne(id);
     model.addAttribute(account);
-    model.addAttribute("questionBundle", questionBundle);
+    redirectAttributes.addAttribute("questionBundleId", questionBundle.getId());
     return "redirect:/new-test_paper";
   }
 
-  @PostMapping("/question_bundle/{id}/new-test_paper_question_bundle")
-  public String newTestPaperQuestionBundle(@CurrentAccount Account account, @PathVariable Long id, Model model, @Valid TestPaperQuestionBundleForm testPaperQuestionBundleForm, Errors errors) {
-    if (errors.hasErrors()) {
-      model.addAttribute(account);
-      return "question_bundle/form";
-    }
-    Long testPaperId = testPaperQuestionBundleForm.getTestPaperId();
+  @GetMapping("/question_bundle/{id}/add-test_paper")
+  public String newTestPaperQuestionBundle(@CurrentAccount Account account, @PathVariable Long id, Model model, @RequestParam(value = "testPaperId") Long testPaperId) {
+    model.addAttribute(account);
     testPaperService.addQuestionBundle(testPaperId, id);
     return "redirect:/test_paper/" + testPaperId;
+  }
+
+  @GetMapping("/question_bundle/{id}/test_papers")
+  public String viewQuestionBundleTestPaperIndex(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    QuestionBundle questionBundle = questionBundleService.findOne(id);
+    List<TestPaperFlatDto> testPapers = testPaperService.findAllByStatus(TestPaperStatus.READY, id, null);
+    List<TestPaperFlatDto> currentTestPapers = testPaperService.findAllByStatus(null, null, id);
+
+    model.addAttribute("testPapers", testPapers);
+    model.addAttribute("currentTestPapers", currentTestPapers);
+    model.addAttribute(account);
+    model.addAttribute(questionBundle);
+    model.addAttribute(new TestPaperQuestionBundleForm());
+    return "question_bundle/test_papers";
   }
 }

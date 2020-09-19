@@ -37,8 +37,8 @@ public class QuestionBundle extends BaseTimeEntity {
   private QuestionBundlePaper paper; // 시험 종류
 
 
-  @OneToMany(mappedBy = "questionBundle")
-  @OrderBy("weight ASC")
+  @OneToMany(mappedBy = "questionBundle", cascade = CascadeType.ALL)
+  @OrderBy("weight desc")
   private List<Question> questions = new ArrayList<>();
 
   @OneToMany(mappedBy = "questionBundle")

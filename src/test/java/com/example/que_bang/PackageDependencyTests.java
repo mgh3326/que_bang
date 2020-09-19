@@ -19,7 +19,7 @@ public class PackageDependencyTests {
           .should().onlyBeAccessed().byClassesThat()
           .resideInAnyPackage("com.example.que_bang.modules..");
   @ArchTest
-  ArchRule studyPackageRule = classes().that().resideInAPackage(QUESTION_BUNDLE)
+  ArchRule quebangPackageRule = classes().that().resideInAPackage(QUESTION_BUNDLE)
           .should().onlyBeAccessed().byClassesThat()
           .resideInAnyPackage(QUESTION_BUNDLE, QUESTION, TEST_PAPER_QUESTION_BUNDLE, TEST_PAPER);
 }

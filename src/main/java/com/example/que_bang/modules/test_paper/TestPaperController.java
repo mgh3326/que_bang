@@ -3,6 +3,7 @@ package com.example.que_bang.modules.test_paper;
 import com.example.que_bang.modules.account.Account;
 import com.example.que_bang.modules.account.CurrentAccount;
 import com.example.que_bang.modules.test_paper.form.TestPaperForm;
+import com.example.que_bang.modules.test_paper.query.TestPaperQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -22,9 +24,13 @@ public class TestPaperController {
   private final TestPaperService testPaperService;
 
   @GetMapping("/new-test_paper")
-  public String newTestPaperForm(@CurrentAccount Account account, Model model) {
+  public String newTestPaperForm(@CurrentAccount Account account, Model model, @RequestParam(value = "questionBundleId", required = false) Long questionBundleId) {
     model.addAttribute(account);
-    model.addAttribute(new TestPaperForm());
+    TestPaperForm testPaperForm = new TestPaperForm();
+    if (questionBundleId != null) {
+      testPaperForm.setQuestionBundleId(questionBundleId);
+    }
+    model.addAttribute(testPaperForm);
     return "test_paper/form";
   }
 
@@ -36,7 +42,6 @@ public class TestPaperController {
     }
 
     Long newTestPaperId = testPaperService.add(modelMapper.map(testPaperForm, TestPaper.class));
-    // TODO 저장 안 되는걸로 보임
     if (testPaperForm.getQuestionBundleId() != null) {
       testPaperService.addQuestionBundle(newTestPaperId, testPaperForm.getQuestionBundleId());
     }
@@ -45,9 +50,16 @@ public class TestPaperController {
 
   @GetMapping("/test_paper/{id}")
   public String viewQuestionBundle(@CurrentAccount Account account, @PathVariable Long id, Model model) {
-    TestPaper testPaper = testPaperService.findOne(id);
+    TestPaperQueryDto testPaper = testPaperService.findOneWithQuestionBundle(id);
     model.addAttribute(account);
-    model.addAttribute(testPaper);
+    model.addAttribute("testPaper", testPaper);
     return "test_paper/view";
+  }
+
+  @GetMapping("/test_papers")
+  public String indexTestPaper(@CurrentAccount Account account, Model model) {
+    model.addAttribute(account);
+    model.addAttribute("testPapers", testPaperService.findAllByStatus(null, null, null));
+    return "test_paper/index";
   }
 }

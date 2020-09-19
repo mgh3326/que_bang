@@ -30,7 +30,7 @@ public class TestPaper extends BaseTimeEntity {
   private TestPaperStatus status = TestPaperStatus.READY; // READY, COMP (진행중, 완료됨)
 
   @OneToMany(mappedBy = "testPaper", cascade = CascadeType.ALL)
-  @OrderBy("weight ASC")
+  @OrderBy("weight desc")
   private List<TestPaperQuestionBundle> testPaperQuestionBundles = new ArrayList<>();
 
   public static TestPaper createTestPaper(String title) {

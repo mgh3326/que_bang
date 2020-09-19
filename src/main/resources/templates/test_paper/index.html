@@ -7,13 +7,12 @@
 <div class="container">
     <div class="row py-4 text-left justify-content-center bg-light">
         <div class="col-6">
-
-            <h2>문제 묶음</h2>
+            <h2>문제지</h2>
         </div>
         <div class="col-4 text-right justify-content-end">
             <a class="btn btn-primary"
-               th:href="@{/new-question_bundle}">
-                <i class="fa fa-plus"></i> 문제 묶음 추가
+               th:href="@{/new-test_paper}">
+                <i class="fa fa-plus"></i> 문제지 추가
             </a>
         </div>
     </div>
@@ -22,26 +21,21 @@
         <table class="table col-sm-10">
             <thead class="thead-light">
             <th scope="col">#</th>
-            <th scope="col">year</th>
-            <th scope="col">month</th>
-            <th scope="col">timeZone</th>
-            <th scope="col">paper</th>
-            <th scope="col">question count</th>
+            <th scope="col">status</th>
+            <th scope="col">title</th>
+            <th scope="col">questionBundleCount</th>
             <th scope="col">action</th>
             </thead>
             <tbody>
-            <tr th:each="questionBundle: ${questionBundles}">
-                <td th:text="${questionBundle.id}"></td>
-                <td th:text="${questionBundle.year}"></td>
-                <td th:text="${questionBundle.month}"></td>
-                <td th:text="${questionBundle.timeZone.getDisplayValue()}"></td>
-                <td th:text="${questionBundle.paper.getDisplayValue()}"></td>
-                <td th:text="${questionBundle.questionCount}"></td>
-                <td><a href="#" th:href="@{'/question_bundle/' + ${questionBundle.id}}"
+            <tr th:each="testPaper: ${testPapers}">
+                <td th:text="${testPaper.id}"></td>
+                <td th:text="${testPaper.status}"></td>
+                <td th:text="${testPaper.title}"></td>
+                <td th:text="${testPaper.questionBundleCount}"></td>
+                <td><a href="#" th:href="@{'/test_paper/' + ${testPaper.id}}"
                        class="card-link">Detail</a></td>
             </tr>
             </tbody>
-
         </table>
     </div>
     <div th:replace="fragments.html :: footer"></div>

@@ -84,9 +84,7 @@ class QuestionBundleControllerTest extends BaseControllerTest {
             .andExpect(status().isOk())
             .andExpect(view().name("question_bundle/view"))
             .andExpect(model().attributeExists("account"))
-            .andExpect(model().attributeExists("questionBundle"))
-            .andExpect(model().attributeExists("testPapers"))
-            .andExpect(model().attributeExists("testPaperQuestionBundleForm"));
+            .andExpect(model().attributeExists("questionBundle"));
   }
 
   @Test

@@ -3,6 +3,7 @@ package com.example.que_bang.modules.test_paper;
 import com.example.que_bang.modules.question_bundle.QuestionBundle;
 import com.example.que_bang.modules.question_bundle.QuestionBundleService;
 import com.example.que_bang.modules.test_paper.query.TestPaperFlatDto;
+import com.example.que_bang.modules.test_paper.query.TestPaperQueryDto;
 import com.example.que_bang.modules.test_paper.query.TestPaperQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,14 @@ public class TestPaperService {
     return testPaperRepository.findById(id).orElseThrow();
   }
 
-  public List<TestPaperFlatDto> findAllByStatus(TestPaperStatus status) {
-    return testPaperQueryRepository.findAll(status);
+  public TestPaperQueryDto findOneWithQuestionBundle(Long id) {
+    return testPaperQueryRepository.findAllWithQuestionBundle(id).orElseThrow();
   }
+
+  public List<TestPaperFlatDto> findAllByStatus(TestPaperStatus status, Long ignoreQuestionBundleId, Long questionBundleId) {
+    return testPaperQueryRepository.findAll(status, ignoreQuestionBundleId, questionBundleId);
+  }
+
   @Transactional
   public void addQuestionBundle(Long testPaperId, Long questionBundleId) {
     TestPaper testPaper = findOne(testPaperId);

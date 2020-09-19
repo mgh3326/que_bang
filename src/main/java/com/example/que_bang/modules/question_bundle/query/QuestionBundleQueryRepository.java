@@ -3,6 +3,7 @@ package com.example.que_bang.modules.question_bundle.query;
 
 import com.example.que_bang.modules.question.QQuestion;
 import com.example.que_bang.modules.question_bundle.QQuestionBundle;
+import com.example.que_bang.modules.question_bundle.QuestionBundle;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,9 +31,21 @@ public class QuestionBundleQueryRepository {
                             JPAExpressions.select(question.count())
                                     .from(question)
                                     .where(question.questionBundle.eq(questionBundle)),
-                            "testPaperQuestionBundleCount"
+                            "questionCount"
                     )))
             .from(questionBundle)
             .fetch();
+  }
+
+  public Optional<QuestionBundle> findOneWithQuestion(Long id) {
+    JPAQueryFactory query = new JPAQueryFactory(em);
+    QQuestionBundle questionBundle = QQuestionBundle.questionBundle;
+    QQuestion question = QQuestion.question;
+    return Optional.ofNullable(query
+            .selectFrom(questionBundle)
+            .where(questionBundle.id.eq(id))
+            .leftJoin(questionBundle.questions, question)
+            .fetchJoin()
+            .fetchOne());
   }
 }

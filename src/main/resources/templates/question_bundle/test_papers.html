@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"></head>
+<body class="bg-light">
+<div th:replace="fragments.html :: main-nav"></div>
+<div class="container">
+    <div th:replace="fragments.html :: questionBundle-info"></div>
+    <div th:replace="fragments.html :: questionBundle-menu(questionBundleMenu='testPaper')"></div>
+    <div class="row pt-4 text-left justify-content-center bg-light">
+        <div class="col-6">
+            <h2>
+                문제지에 추가
+            </h2>
+        </div>
+        <div class="col-4 text-right justify-content-end">
+            <span class="btn-group" role="group">
+                    <a class="btn btn-primary"
+                       th:href="@{'/question_bundle/' + ${questionBundle.id} + '/new-test_paper'}">
+                                                <i class="fa fa-plus-circle"></i> 새로운 문제지에 추가
+                    </a>
+                </span>
+        </div>
+    </div>
+    <div class="row mt-3 justify-content-center">
+        <table class="table col-sm-10">
+            <thead class="thead-light">
+            <th scope="col">#</th>
+            <th scope="col">title</th>
+            <th scope="col">questionBundleCount</th>
+            <th scope="col">action</th>
+            </thead>
+            <tbody>
+            <tr th:each="testPaper: ${testPapers}">
+                <td th:text="${testPaper.id}"></td>
+                <td th:text="${testPaper.title}"></td>
+                <td th:text="${testPaper.questionBundleCount}"></td>
+                <td>
+                    <a href="#" th:href="@{'/test_paper/' + ${testPaper.id}}"
+                       class="card-link">Detail</a>
+                    <a href="#"
+                       th:href="@{'/question_bundle/' + ${questionBundle.id} + '/add-test_paper?testPaperId='+${testPaper.id}}"
+                       class="card-link">Add</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row pt-4 text-left justify-content-center bg-light">
+        <div class="col-6">
+            <h2>
+                현재 등록된 문제지
+            </h2>
+        </div>
+        <div class="col-4 text-right justify-content-end">
+        </div>
+    </div>
+    <div class="row mt-3 justify-content-center">
+        <table class="table col-sm-10">
+            <thead class="thead-light">
+            <th scope="col">#</th>
+            <th scope="col">title</th>
+            <th scope="col">status</th>
+            <th scope="col">questionBundleCount</th>
+            <th scope="col">action</th>
+            </thead>
+            <tbody>
+            <tr th:each="testPaper: ${currentTestPapers}">
+                <td th:text="${testPaper.id}"></td>
+                <td th:text="${testPaper.title}"></td>
+                <td th:text="${testPaper.status}"></td>
+                <td th:text="${testPaper.questionBundleCount}"></td>
+                <td>
+                    <a href="#" th:href="@{'/test_paper/' + ${testPaper.id}}"
+                       class="card-link">Detail</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments.html :: footer"></div>
+</div>
+<script th:replace="fragments.html :: tooltip"></script>
+</body>
+</html>

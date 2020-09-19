@@ -23,8 +23,7 @@
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title
                     Error</small>
             </div>
-            <input th:if="${questionBundle}" type="hidden" th:value="${questionBundle.getId()}"
-                   th:attr="name='questionBundleId'"/>
+            <input type="hidden" th:value="${testPaperForm.questionBundleId}" th:attr="name='questionBundleId'"/>
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit"
                         aia-describedby="submitHelp">문제지 만들기

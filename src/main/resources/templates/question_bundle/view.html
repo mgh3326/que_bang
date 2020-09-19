@@ -6,7 +6,43 @@
 <div class="container">
     <div th:replace="fragments.html :: questionBundle-info"></div>
     <div th:replace="fragments.html :: questionBundle-menu(questionBundleMenu='info')"></div>
+    <div class="row pt-4 text-left justify-content-center bg-light">
+        <div class="col-6">
 
+        </div>
+        <div class="col-4 text-right justify-content-end">
+            <span
+                    class="btn-group" role="group">
+                    <a class="btn btn-primary"
+                       th:href="@{'/question_bundle/' + ${questionBundle.getId()} + '/new-question'}">
+                                                <i class="fa fa-plus-circle"></i> 문제 추가
+                    </a>
+                </span>
+        </div>
+    </div>
+    <div class="row mt-3 justify-content-center">
+        <table class="table col-sm-10">
+            <thead class="thead-light">
+            <th scope="col">#</th>
+            <th scope="col">type</th>
+            <th scope="col">score</th>
+            <th scope="col">mainTopic</th>
+            <th scope="col">subTopic</th>
+            <th scope="col">action</th>
+            </thead>
+            <tbody>
+            <tr th:each="question: ${questionBundle.questions}">
+                <td th:text="${question.id}"></td>
+                <td th:text="${question.getClass().getSimpleName()}"></td>
+                <td th:text="${question.score}"></td>
+                <td th:text="${question.mainTopic.getDisplayValue()}"></td>
+                <td th:text="${question.subTopic.getDisplayValue()}"></td>
+                <td><a href="#" th:href="@{'/question/' + ${question.id}}"
+                       class="card-link">Detail</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <div th:replace="fragments.html :: footer"></div>
 </div>
 <script th:replace="fragments.html :: tooltip"></script>
