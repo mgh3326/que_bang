@@ -22,7 +22,7 @@ public class TestPaperQueryRepository {
   private final EntityManager em;
 
   public List<TestPaperFlatDto> findAll(TestPaperStatus status) {
-
+    //TODO question_bundle_id에 따라 제외되도록 해야함
     JPAQueryFactory query = new JPAQueryFactory(em);
     QTestPaperQuestionBundle testPaperQuestionBundle = QTestPaperQuestionBundle.testPaperQuestionBundle;
     return query

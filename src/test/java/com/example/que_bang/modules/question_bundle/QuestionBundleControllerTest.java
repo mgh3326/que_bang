@@ -22,6 +22,17 @@ class QuestionBundleControllerTest extends BaseControllerTest {
 
   @Test
   @WithAccount("robin")
+  @DisplayName("문제 묶음 index 조회")
+  void index() throws Exception {
+    mockMvc.perform(get("/question_bundles"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("question_bundle/index"))
+            .andExpect(model().attributeExists("account"))
+            .andExpect(model().attributeExists("questionBundles"));
+  }
+
+  @Test
+  @WithAccount("robin")
   @DisplayName("문제 묶음 개설 폼 조회")
   void createQuestionBundleForm() throws Exception {
     mockMvc.perform(get("/new-question_bundle"))

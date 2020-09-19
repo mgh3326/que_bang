@@ -59,7 +59,7 @@ class TestPaperServiceTest extends BaseServiceTest {
     assertNotNull(testPaper1.getLastModifiedDate());
     List<TestPaperFlatDto> allByStatus = testPaperService.findAllByStatus(TestPaperStatus.READY);
     assertNotNull(allByStatus);
-    assertEquals((long) allByStatus.get(0).questionCount, 2);
+    assertEquals((long) allByStatus.get(0).questionBundleCount, 2);
   }
 
   @Test

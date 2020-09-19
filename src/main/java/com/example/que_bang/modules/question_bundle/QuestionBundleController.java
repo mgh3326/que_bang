@@ -33,6 +33,13 @@ public class QuestionBundleController {
   private final static List<Integer> yearList = IntStream.iterate(Calendar.getInstance().get(Calendar.YEAR), i -> i >= 1968, i -> i - 1).boxed().collect(Collectors.toCollection(ArrayList::new));
   private final static List<Integer> monthList = Arrays.asList(5, 11);
 
+  @GetMapping("/question_bundles")
+  public String questionBundleIndex(@CurrentAccount Account account, Model model) {
+    model.addAttribute(account);
+    model.addAttribute("questionBundles", questionBundleService.findAll());
+    return "question_bundle/index";
+  }
+
   @GetMapping("/new-question_bundle")
   public String newQuestionBundleForm(@CurrentAccount Account account, Model model) {
     model.addAttribute(account);

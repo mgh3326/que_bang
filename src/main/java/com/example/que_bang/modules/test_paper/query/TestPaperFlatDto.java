@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 public class TestPaperFlatDto {
   public Long id;
   public String title;
-  public Long questionCount;
+  public Long questionBundleCount;
 
   public String getName() {
     {
-      return String.format("%s(%d)", title, questionCount);
+      return String.format("%s(%d)", title, questionBundleCount);
     }
   }
 }
