@@ -12,65 +12,68 @@
         <form class="needs-validation col-sm-10" th:action="@{/new-question_bundle}" th:object="${questionBundleForm}"
               method="post"
               novalidate>
-            <div class="form-group">
-                <label for="year">연도</label>
-                <select th:field="*{year}" class="custom-select mr-sm-2" id="year"
-                        aria-describedby="yearHelp" name="Year">
-                    <option th:each="year : ${yearList}"
-                            th:value="${year}" th:text="${year}">
-                    </option>
-                </select>
-                <small id="yearHelp" class="form-text text-muted">
-                    연도를 선택하세요
-                </small>
-                <small class="invalid-feedback">연도를 입력하세요.</small>
-                <small class="form-text text-danger" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year
-                    Error</small>
-            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="year">연도</label>
+                    <select th:field="*{year}" class="custom-select mr-sm-2" id="year"
+                            aria-describedby="yearHelp" name="Year">
+                        <option th:each="year : ${yearList}"
+                                th:value="${year}" th:text="${year}">
+                        </option>
+                    </select>
+                    <small id="yearHelp" class="form-text text-muted">
+                        연도를 선택하세요
+                    </small>
+                    <small class="invalid-feedback">연도를 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year
+                        Error</small>
+                </div>
 
-            <div class="form-group">
-                <label for="month">월</label>
-                <select th:field="*{month}" class="custom-select mr-sm-2" id="month"
-                        aria-describedby="yearHelp" name="Month">
-                    <option th:each="month : ${monthList}"
-                            th:value="${month}" th:text="${month}">
-                    </option>
-                </select>
-                <small id="monthHelp" class="form-text text-muted">
-                    월을 입력하세요.
-                </small>
-                <small class="invalid-feedback">월을 입력하세요.</small>
-                <small class="form-text text-danger" th:if="${#fields.hasErrors('month')}"
-                       th:errors="*{month}">Month Error</small>
-            </div>
+                <div class="form-group col-md-3">
+                    <label for="month">월</label>
+                    <select th:field="*{month}" class="custom-select mr-sm-2" id="month"
+                            aria-describedby="yearHelp" name="Month">
+                        <option th:each="month : ${monthList}"
+                                th:value="${month}" th:text="${month}">
+                        </option>
+                    </select>
+                    <small id="monthHelp" class="form-text text-muted">
+                        월을 입력하세요.
+                    </small>
+                    <small class="invalid-feedback">월을 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('month')}"
+                           th:errors="*{month}">Month Error</small>
+                </div>
 
-            <div class="form-group">
-                <label for="timeZone">타임존</label>
-                <select th:field="*{timeZone}" class="custom-select mr-sm-2" id="timeZone"
-                        aria-describedby="timeZoneHelp" name="timeZone">
-                    <option th:each="timeZone : ${T(com.example.que_bang.modules.question_bundle.QuestionBundleTimeZone).values()}"
-                            th:value="${timeZone}" th:text="${timeZone.getDisplayValue()}"></option>
-                </select>
-                <small id="timeZoneHelp" class="form-text text-muted">
-                    타임존을 선택해주세요
-                </small>
-                <small class="invalid-feedback">타임존을 입력하세요.</small>
-                <small class="form-text text-danger" th:if="${#fields.hasErrors('timeZone')}" th:errors="*{timeZone}">Paper
-                    Error</small>
-            </div>
-            <div class="form-group">
-                <label for="paper">페이퍼</label>
-                <select th:field="*{paper}" class="custom-select mr-sm-2" id="paper"
-                        aria-describedby="paperHelp" name="Paper">
-                    <option th:each="paper : ${T(com.example.que_bang.modules.question_bundle.QuestionBundlePaper).values()}"
-                            th:value="${paper}" th:text="${paper.getDisplayValue()}"></option>
-                </select>
-                <small id="paperHelp" class="form-text text-muted">
-                    페이퍼 선택해주세요
-                </small>
-                <small class="invalid-feedback">페이퍼를 입력하세요.</small>
-                <small class="form-text text-danger" th:if="${#fields.hasErrors('paper')}" th:errors="*{paper}">Paper
-                    Error</small>
+                <div class="form-group col-md-3">
+                    <label for="timeZone">타임존</label>
+                    <select th:field="*{timeZone}" class="custom-select mr-sm-2" id="timeZone"
+                            aria-describedby="timeZoneHelp" name="timeZone">
+                        <option th:each="timeZone : ${T(com.example.que_bang.modules.question_bundle.QuestionBundleTimeZone).values()}"
+                                th:value="${timeZone}" th:text="${timeZone.getDisplayValue()}"></option>
+                    </select>
+                    <small id="timeZoneHelp" class="form-text text-muted">
+                        타임존을 선택해주세요
+                    </small>
+                    <small class="invalid-feedback">타임존을 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('timeZone')}"
+                           th:errors="*{timeZone}">Paper
+                        Error</small>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="paper">페이퍼</label>
+                    <select th:field="*{paper}" class="custom-select mr-sm-2" id="paper"
+                            aria-describedby="paperHelp" name="Paper">
+                        <option th:each="paper : ${T(com.example.que_bang.modules.question_bundle.QuestionBundlePaper).values()}"
+                                th:value="${paper}" th:text="${paper.getDisplayValue()}"></option>
+                    </select>
+                    <small id="paperHelp" class="form-text text-muted">
+                        페이퍼 선택해주세요
+                    </small>
+                    <small class="invalid-feedback">페이퍼를 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('paper')}" th:errors="*{paper}">Paper
+                        Error</small>
+                </div>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit"
