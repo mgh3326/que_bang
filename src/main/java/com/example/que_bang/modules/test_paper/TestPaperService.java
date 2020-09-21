@@ -2,10 +2,12 @@ package com.example.que_bang.modules.test_paper;
 
 import com.example.que_bang.modules.question_bundle.QuestionBundle;
 import com.example.que_bang.modules.question_bundle.QuestionBundleService;
+import com.example.que_bang.modules.test_paper.form.TestPaperForm;
 import com.example.que_bang.modules.test_paper.query.TestPaperFlatDto;
 import com.example.que_bang.modules.test_paper.query.TestPaperQueryDto;
 import com.example.que_bang.modules.test_paper.query.TestPaperQueryRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ public class TestPaperService {
   private final TestPaperRepository testPaperRepository;
   private final TestPaperQueryRepository testPaperQueryRepository;
   private final QuestionBundleService questionBundleService;
+  private final ModelMapper modelMapper;
 
   @Transactional
   public Long add(TestPaper testPaper) {
@@ -45,4 +48,9 @@ public class TestPaperService {
     testPaper.addTestPaperQuestionBundle(testPaperQuestionBundle);
   }
 
+  @Transactional
+  public void updateFromForm(Long id, TestPaperForm testPaperForm) {
+    TestPaper testPaper = findOne(id);
+    modelMapper.map(testPaperForm, testPaper);
+  }
 }

@@ -5,12 +5,11 @@
 <div th:replace="fragments.html :: main-nav"></div>
 
 <div class="container">
-    <div th:replace="fragments.html :: question-form(mode='edit', action='/question/' + ${question.id}
+    <div th:replace="fragments.html :: test_paper-form(mode='edit', action='/test_paper/' + ${testPaper.id}
         +'/edit')"></div>
     <div th:replace="fragments.html :: footer"></div>
 </div>
 <script th:replace="fragments.html :: tooltip"></script>
 <script th:replace="fragments.html :: form-validation"></script>
-<script th:replace="fragments.html :: editor-script"></script>
 </body>
 </html>

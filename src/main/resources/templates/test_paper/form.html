@@ -5,32 +5,7 @@
 <div th:replace="fragments.html :: main-nav"></div>
 
 <div class="container">
-    <div class="py-5 text-center">
-        <h2>문제지 만들기</h2>
-    </div>
-    <div class="row justify-content-center">
-        <form class="needs-validation col-sm-10" th:action="@{/new-test_paper}" th:object="${testPaperForm}"
-              method="post"
-              novalidate>
-            <div class="form-group">
-                <label for="title">제목</label>
-                <input id="title" type="text" th:field="*{title}" class="form-control"
-                       placeholder="내용" aria-describedby="titleHelp" required max="4">
-                <small id="titleHelp" class="form-text text-muted">
-                    제목를 입력하세요.
-                </small>
-                <small class="invalid-feedback">제목을 입력하세요.</small>
-                <small class="form-text text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title
-                    Error</small>
-            </div>
-            <input type="hidden" th:value="${testPaperForm.questionBundleId}" th:attr="name='questionBundleId'"/>
-            <div class="form-group">
-                <button class="btn btn-primary btn-block" type="submit"
-                        aia-describedby="submitHelp">문제지 만들기
-                </button>
-            </div>
-        </form>
-    </div>
+    <div th:replace="fragments.html :: test_paper-form(mode='new', action='/new-test_paper/')"></div>
 
     <div th:replace="fragments.html :: footer"></div>
 </div>

@@ -9,10 +9,13 @@
             <span class="h2" th:text="${testPaper.getTitle()}"></span>
         </div>
         <div class="col-4 text-right justify-content-end">
-                <span>
-                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#blah">
-                        <i class="fa fa-edit"></i> 문제지 수정
-                    </button>
+            <span class="btn-group" role="group">
+                    <a class="btn btn-primary"
+                       th:href="@{'/test_paper/' + ${testPaper.id} + '/edit'}">
+                                                <i class="fa fa-edit"></i> 문제지 수정
+                    </a>
+                </span>
+            <span>
                     <button class="btn btn-outline-primary" data-toggle="modal" data-target="#blah">
                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                          Save PDF
