@@ -108,4 +108,27 @@ public class QuestionBundleController {
     model.addAttribute(new TestPaperQuestionBundleForm());
     return "question_bundle/test_papers";
   }
+
+  @GetMapping("/question_bundle/{id}/edit")
+  public String editQuestionBundle(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    QuestionBundle questionBundle = questionBundleService.findOne(id);
+    model.addAttribute(account);
+    model.addAttribute(questionBundle);
+    model.addAttribute(modelMapper.map(questionBundle, QuestionBundleForm.class));
+    model.addAttribute("yearList", yearList);
+    model.addAttribute("monthList", monthList);
+    return "question_bundle/update-form";
+  }
+
+  @PostMapping("/question_bundle/{id}/edit")
+  public String editQuestionBundleSubmit(@CurrentAccount Account account, @PathVariable Long id, @Valid QuestionBundleForm questionBundleForm, Errors errors, Model model) {
+    QuestionBundle questionBundle = questionBundleService.findOne(id);
+    if (errors.hasErrors()) {
+      model.addAttribute(account);
+      model.addAttribute(questionBundle);
+      return "question_bundle/update-form";
+    }
+    questionBundleService.updateQuestionBundleDescription(id, questionBundleForm);
+    return "redirect:/question_bundle/" + id.toString();
+  }
 }

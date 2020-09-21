@@ -5,9 +5,11 @@
 <div th:replace="fragments.html :: main-nav"></div>
 
 <div class="container">
-    <div th:replace="fragments.html :: question_bundle-form(mode='new', action='/new-question_bundle')"></div>
+    <div th:replace="fragments.html :: question_bundle-form (mode='edit', action='/question_bundle/' + ${questionBundle.id}
+        +'/edit')"></div>
     <div th:replace="fragments.html :: footer"></div>
 </div>
+
 <script th:replace="fragments.html :: tooltip"></script>
 <script th:replace="fragments.html :: form-validation"></script>
 </body>

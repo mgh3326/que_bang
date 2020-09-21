@@ -39,7 +39,9 @@ class QuestionBundleControllerTest extends BaseControllerTest {
             .andExpect(status().isOk())
             .andExpect(view().name("question_bundle/form"))
             .andExpect(model().attributeExists("account"))
-            .andExpect(model().attributeExists("questionBundleForm"));
+            .andExpect(model().attributeExists("questionBundleForm"))
+            .andExpect(model().attributeExists("yearList"))
+            .andExpect(model().attributeExists("monthList"));
   }
 
   @Test
@@ -99,5 +101,21 @@ class QuestionBundleControllerTest extends BaseControllerTest {
             .andExpect(model().attributeExists("account"))
             .andExpect(model().attributeExists("questionForm"))
             .andExpect(model().attributeExists("questionBundle"));
+  }
+
+  @Test
+  @WithAccount("robin")
+  @DisplayName("문제 묶음 수정 폼")
+  void editQuestionBundle_form() throws Exception {
+    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
+    questionBundleService.add(questionBundle);
+    mockMvc.perform(get(String.format("/question_bundle/%d/edit", questionBundle.getId())))
+            .andExpect(status().isOk())
+            .andExpect(view().name("question_bundle/update-form"))
+            .andExpect(model().attributeExists("account"))
+            .andExpect(model().attributeExists("questionBundleForm"))
+            .andExpect(model().attributeExists("yearList"))
+            .andExpect(model().attributeExists("monthList"));
+    ;
   }
 }
