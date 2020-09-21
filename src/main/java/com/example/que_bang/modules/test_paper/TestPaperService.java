@@ -53,4 +53,8 @@ public class TestPaperService {
     TestPaper testPaper = findOne(id);
     modelMapper.map(testPaperForm, testPaper);
   }
+
+  public void deleteOne(Long id) {
+    testPaperRepository.deleteById(id);
+  }
 }

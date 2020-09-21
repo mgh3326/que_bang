@@ -33,7 +33,12 @@
                 <td th:text="${testPaper.title}"></td>
                 <td th:text="${testPaper.questionBundleCount}"></td>
                 <td><a href="#" th:href="@{'/test_paper/' + ${testPaper.id}}"
-                       class="card-link">Detail</a></td>
+                       class="card-link">Detail</a>
+                    <a href="#" th:href="@{'/test_paper/' + ${testPaper.id} + '/edit'}"
+                       class="card-link">Edit</a>
+                    <a href="#" th:href="@{'/test_paper/' + ${testPaper.id} + '/delete'}"
+                       class="card-link">Delete</a>
+                </td>
             </tr>
             </tbody>
         </table>

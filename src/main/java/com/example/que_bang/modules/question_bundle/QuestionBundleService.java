@@ -41,4 +41,9 @@ public class QuestionBundleService {
   public List<QuestionBundleFlatDto> findAll() {
     return questionBundleQueryRepository.findAll();
   }
+
+  @Transactional
+  public void deleteOne(Long id) {
+    questionBundleRepository.deleteById(id);
+  }
 }

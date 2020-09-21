@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum QuestionType {
-  ESSAY("Essay"), MULTIPLE_CHOICE("Multiple choice"), SHORT_ANSWER("Short answer");
+  E("Essay"), M("Multiple choice"), S("Short answer");
   private final String displayValue;
 }

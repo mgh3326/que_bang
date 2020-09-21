@@ -89,4 +89,10 @@ public class TestPaperController {
 
     return "redirect:/test_paper/" + id.toString();
   }
+
+  @GetMapping("/test_paper/{id}/delete")
+  public String deleteTestPaper(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    testPaperService.deleteOne(id);
+    return "redirect:/test_papers";
+  }
 }

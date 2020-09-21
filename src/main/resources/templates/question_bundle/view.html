@@ -38,7 +38,12 @@
                 <td th:text="${question.mainTopic.getDisplayValue()}"></td>
                 <td th:text="${question.subTopic.getDisplayValue()}"></td>
                 <td><a href="#" th:href="@{'/question/' + ${question.id}}"
-                       class="card-link">Detail</a></td>
+                       class="card-link">Detail</a>
+                    <a href="#" th:href="@{'/question/' + ${question.id} + '/edit'}"
+                       class="card-link">Edit</a>
+                    <a href="#" th:href="@{'/question/' + ${question.id} + '/delete'}"
+                       class="card-link">Delete</a>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -61,4 +61,11 @@ public class QuestionController {
 
     return "redirect:/question/" + id.toString();
   }
+
+  @GetMapping("/question/{id}/delete")
+  public String deleteQuestionBundle(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    Long questionBundleId = questionService.findOneWithQuestionBundle(id).getQuestionBundle().getId();
+    questionService.deleteOne(id);
+    return "redirect:/question_bundle/" + questionBundleId.toString();
+  }
 }

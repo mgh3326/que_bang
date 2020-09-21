@@ -131,4 +131,11 @@ public class QuestionBundleController {
     questionBundleService.updateQuestionBundleDescription(id, questionBundleForm);
     return "redirect:/question_bundle/" + id.toString();
   }
+
+  @GetMapping("/question_bundle/{id}/delete")
+  public String deleteQuestionBundle(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    questionBundleService.deleteOne(id);
+    return "redirect:/question_bundles";
+
+  }
 }

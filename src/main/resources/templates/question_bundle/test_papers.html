@@ -40,6 +40,8 @@
                     <a href="#"
                        th:href="@{'/question_bundle/' + ${questionBundle.id} + '/add-test_paper?testPaperId='+${testPaper.id}}"
                        class="card-link">Add</a>
+                    <a href="#" th:href="@{'/test_paper/' + ${testPaper.id} + '/edit'}"
+                       class="card-link">Edit</a>
                 </td>
             </tr>
             </tbody>
@@ -73,6 +75,8 @@
                 <td>
                     <a href="#" th:href="@{'/test_paper/' + ${testPaper.id}}"
                        class="card-link">Detail</a>
+                    <a href="#" th:href="@{'/test_paper/' + ${testPaper.id} + '/edit'}"
+                       class="card-link">Edit</a>
                 </td>
             </tr>
             </tbody>

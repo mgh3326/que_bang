@@ -35,7 +35,7 @@ class QuestionControllerTest extends BaseControllerTest {
     questionBundleService.add(questionBundle);
     String content = "문제 내용";
     mockMvc.perform(post("/new-question")
-            .param("type", QuestionType.ESSAY.name())
+            .param("type", QuestionType.E.name())
             .param("score", "5")
             .param("content", content)
             .param("answerContent", "정답 내용")

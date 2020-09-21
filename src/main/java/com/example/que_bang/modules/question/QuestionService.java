@@ -62,18 +62,18 @@ public class QuestionService {
 
   public QuestionForm getQuestionForm(Question question) {
     QuestionForm questionForm = modelMapper.map(question, QuestionForm.class);
-    questionForm.setType(QuestionType.valueOf(question.getClass().getSimpleName().toUpperCase()));
+    questionForm.setType(QuestionType.valueOf(question.getClass().getSimpleName().substring(0, 1)));
     questionForm.setAnswerContent(question.getAnswer().getContent());
     return questionForm;
   }
 
   private Question getQuestion(QuestionForm questionForm) {
     switch (questionForm.getType()) {
-      case ESSAY:
+      case E:
         return modelMapper.map(this, Essay.class);
-      case MULTIPLE_CHOICE:
+      case M:
         return modelMapper.map(this, MultipleChoice.class);
-      case SHORT_ANSWER:
+      case S:
         return modelMapper.map(this, ShortAnswer.class);
       default:
         throw new IllegalStateException("Unexpected value: " + questionForm.getType());
@@ -88,5 +88,10 @@ public class QuestionService {
     question.setMainTopic(questionForm.getMainTopic());
     question.setSubTopic(questionForm.getSubTopic());
     question.setScore(questionForm.getScore());
+  }
+
+  @Transactional
+  public void deleteOne(Long id) {
+    questionRepository.deleteById(id);
   }
 }
