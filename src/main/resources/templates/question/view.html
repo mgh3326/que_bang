@@ -13,10 +13,11 @@
             <span class="h2" th:text="${question.getTitle()}"></span>
         </div>
         <div class="col-4 text-right justify-content-end">
-                <span>
-                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#blah">
-                        <i class="fa fa-edit"></i> 문제 수정
-                    </button>
+            <span class="btn-group" role="group">
+                    <a class="btn btn-primary"
+                       th:href="@{'/question/' + ${question.id} + '/edit'}">
+                                                <i class="fa fa-edit"></i> 문제 수정
+                    </a>
                 </span>
         </div>
 

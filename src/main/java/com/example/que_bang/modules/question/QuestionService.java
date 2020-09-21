@@ -60,6 +60,13 @@ public class QuestionService {
     return questionRepository.findAllByQuestionBundleId(questionBundleId);
   }
 
+  public QuestionForm getQuestionForm(Question question) {
+    QuestionForm questionForm = modelMapper.map(question, QuestionForm.class);
+    questionForm.setType(QuestionType.valueOf(question.getClass().getSimpleName().toUpperCase()));
+    questionForm.setAnswerContent(question.getAnswer().getContent());
+    return questionForm;
+  }
+
   private Question getQuestion(QuestionForm questionForm) {
     switch (questionForm.getType()) {
       case ESSAY:
@@ -73,4 +80,13 @@ public class QuestionService {
     }
   }
 
+  @Transactional
+  public void updateFromForm(Long id, QuestionForm questionForm) {
+    Question question = findOne(id);
+    question.setContent(questionForm.getContent());
+    question.setAnswerContent(questionForm.getAnswerContent());
+    question.setMainTopic(questionForm.getMainTopic());
+    question.setSubTopic(questionForm.getSubTopic());
+    question.setScore(questionForm.getScore());
+  }
 }

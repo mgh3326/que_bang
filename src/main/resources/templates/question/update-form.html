@@ -5,8 +5,8 @@
 <div th:replace="fragments.html :: main-nav"></div>
 
 <div class="container">
-    <div th:replace="fragments.html :: question-form(mode='new', action='/new-question')"></div>
-    <div th:replace="fragments.html :: footer"></div>
+    <div th:replace="fragments.html :: question-form(mode='edit', action='/question/' + ${question.id}
+        +'/edit')"></div>
 </div>
 <script th:replace="fragments.html :: tooltip"></script>
 <script th:replace="fragments.html :: form-validation"></script>

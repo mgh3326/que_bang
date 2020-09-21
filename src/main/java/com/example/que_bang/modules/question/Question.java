@@ -54,4 +54,12 @@ public abstract class Question extends BaseWeightEntity {
   public String getTitle() {
     return String.format("%d/%s/%s", id, mainTopic, subTopic);
   }
+
+  public String getAnswerContent() {
+    return this.getAnswer().getContent();
+  }
+
+  public void setAnswerContent(String answerContent) {
+    this.getAnswer().setContent(answerContent);
+  }
 }

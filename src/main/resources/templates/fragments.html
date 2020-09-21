@@ -186,7 +186,7 @@
             <span class="btn-group" role="group">
                     <a class="btn btn-primary"
                        th:href="@{'/question_bundle/' + ${questionBundle.id} + '/edit'}">
-                                                <i class="fa fa-info-circle"></i> 문제 묶음 수정
+                                                <i class="fa fa-edit"></i> 문제 묶음 수정
                     </a>
                 </span>
         </div>
@@ -195,8 +195,10 @@
 <div th:fragment="question_bundle-form (mode, action)">
 
     <div class="py-5 text-center">
-        <span th:if="${mode == 'edit'}" th:text="${questionBundle.getTitle()}"></span>
-        <span th:if="${mode == 'new'}">문제 묶음 만들기</span>
+        <h2>
+            <span th:if="${mode == 'edit'}" th:text="${questionBundle.getTitle()}"></span>
+            <span th:if="${mode == 'new'}">문제 묶음 만들기</span>
+        </h2>
     </div>
     <div class="row justify-content-center">
         <form class="needs-validation col-sm-10" th:action="@{${action}}" th:object="${questionBundleForm}"
@@ -267,13 +269,111 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit"
-                        aia-describedby="submitHelp" th:text="${mode == 'edit' ? '문제 묶음 수정' : '문제 묶음 만들기'}">모임 수정
+                        aia-describedby="submitHelp" th:text="${mode == 'edit' ? '문제 묶음 수정' : '문제 묶음 만들기'}">
                 </button>
 
             </div>
         </form>
     </div>
 
+</div>
+<div th:fragment="question-form (mode, action)">
+    <div class="py-5 text-center">
+        <h2>
+            <a th:href="@{'/question_bundle/' + ${questionBundle.getId()}}"><span
+                    th:text="${questionBundle.getTitle()}">문제 묶음</span></a> /
+            <span th:if="${mode == 'edit'}" th:text="${question.getTitle()}"></span>
+            <span th:if="${mode == 'new'}">새 문제 만들기</span>
+        </h2>
+    </div>
+    <div class="row justify-content-center">
+        <form class="needs-validation col-sm-10" th:action="@{${action}}" th:object="${questionForm}"
+              method="post"
+              novalidate>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="type">문제 타입</label>
+                    <select th:field="*{type}" class="custom-select mr-sm-2" id="type"
+                            aria-describedby="typeHelp" name="type">
+                        <option th:each="type : ${T(com.example.que_bang.modules.question.QuestionType).values()}"
+                                th:value="${type}" th:text="${type.getDisplayValue()}"></option>
+                    </select>
+                    <small id="typeHelp" class="form-text text-muted">
+                        문제 타입을 선택해주세요
+                    </small>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="score">배점</label>
+                    <input id="score" type="text" th:field="*{score}" class="form-control"
+                           placeholder="5" aria-describedby="scoreHelp">
+                    <small id="scoreHelp" class="form-text text-muted">
+                        배점을 입력하세요.(예시: 5)
+                    </small>
+                    <small class="invalid-feedback">배점을 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('score')}" th:errors="*{score}">Score
+                        Error</small>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="mainTopic">메인 토픽</label>
+                    <select th:field="*{mainTopic}" class="custom-select mr-sm-2" id="mainTopic"
+                            aria-describedby="mainTopicHelp" name="MainTopic">
+                        <option th:each="mainTopic : ${T(com.example.que_bang.modules.question.QuestionMainTopic).values()}"
+                                th:value="${mainTopic}" th:text="${mainTopic.getDisplayValue()}"></option>
+                    </select>
+                    <small id="mainTopicHelp" class="form-text text-muted">
+                        메인 토픽을 선택해주세요
+                    </small>
+                    <small class="invalid-feedback">메인 토픽을 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('mainTopic')}"
+                           th:errors="*{mainTopic}">Paper
+                        Error</small>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="subTopic">서브 토픽</label>
+                    <select th:field="*{subTopic}" class="custom-select mr-sm-2" id="subTopic"
+                            aria-describedby="subTopicHelp" name="SubTopic">
+                        <option th:each="subTopic : ${T(com.example.que_bang.modules.question.QuestionSubTopic).values()}"
+                                th:value="${subTopic}" th:text="${subTopic.getDisplayValue()}"></option>
+                    </select>
+                    <small id="subTopicHelp" class="form-text text-muted">
+                        서브 토픽 선택해주세요
+                    </small>
+                    <small class="invalid-feedback">서브 토픽를 입력하을세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('subTopic')}"
+                           th:errors="*{subTopic}">Paper
+                        Error</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="content">문제 내용</label>
+                <textarea id="content" type="textarea" th:field="*{content}" class="editor form-control"
+                          placeholder="문제 내용을 입력하세요" aria-describedby="contentHelp" required></textarea>
+                <small id="contentHelp" class="form-text text-muted">
+                    문제 내용을 입력하세요
+                </small>
+                <small class="invalid-feedback">문제 내용을 입력하세요.</small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('content')}"
+                       th:errors="*{content}">Content Error</small>
+            </div>
+            <div class="form-group">
+                <label for="answerContent">정답 내용</label>
+                <textarea id="answerContent" type="textarea" th:field="*{answerContent}" class="editor form-control"
+                          placeholder="문제 내용을 입력하세요" aria-describedby="answerContentHelp" required></textarea>
+                <small id="answerContentHelp" class="form-text text-muted">
+                    정답 내용을 입력하세요
+                </small>
+                <small class="invalid-feedback">정답 내용을 입력하세요.</small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('answerContent')}"
+                       th:errors="*{answerContent}">AnswerContent Error</small>
+            </div>
+            <input type="hidden" th:value="${questionBundle.getId()}" th:attr="name='questionBundleId'"/>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit"
+                        aria-describedby="submitHelp" th:text="${mode == 'edit' ? '문제 수정' : '문제 만들기'}">
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 <div th:fragment="questionBundle-menu (questionBundleMenu)" class="row px-3 justify-content-center bg-light">
     <nav class="col-10 nav nav-tabs">

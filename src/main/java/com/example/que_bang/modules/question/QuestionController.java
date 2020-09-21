@@ -3,6 +3,7 @@ package com.example.que_bang.modules.question;
 import com.example.que_bang.modules.account.Account;
 import com.example.que_bang.modules.account.CurrentAccount;
 import com.example.que_bang.modules.question.form.QuestionForm;
+import com.example.que_bang.modules.question_bundle.form.QuestionBundleForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,5 +36,29 @@ public class QuestionController {
     model.addAttribute(question.getQuestionBundle());
     model.addAttribute("question", question);
     return "question/view";
+  }
+
+  @GetMapping("/question/{id}/edit")
+  public String editQuestionForm(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    Question question = questionService.findOneWithQuestionBundle(id);
+    QuestionForm questionForm = questionService.getQuestionForm(question);
+    model.addAttribute(account);
+    model.addAttribute(question.getQuestionBundle());
+    model.addAttribute("question", question);
+    model.addAttribute(questionForm);
+    return "question/update-form";
+  }
+
+  @PostMapping("/question/{id}/edit")
+  public String editQuestion(@CurrentAccount Account account, @PathVariable Long id, @Valid QuestionForm questionForm, Errors errors, Model model) {
+    Question question = questionService.findOneWithQuestionBundle(id);
+    if (errors.hasErrors()) {
+      model.addAttribute(account);
+      model.addAttribute(question);
+      return "question_bundle/update-form";
+    }
+    questionService.updateFromForm(id, questionForm);
+
+    return "redirect:/question/" + id.toString();
   }
 }

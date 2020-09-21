@@ -68,4 +68,30 @@ class QuestionControllerTest extends BaseControllerTest {
             .andExpect(model().attributeExists("question"));
     ;
   }
+
+  @Test
+  @WithAccount("robin")
+  @DisplayName("문제 수정 폼 조회")
+  void editQuestionForm() throws Exception {
+    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
+    questionBundleService.add(questionBundle);
+    String content = "content";
+    double score = 0.9;
+    QuestionMainTopic mainTopic = QuestionMainTopic.M1;
+    QuestionSubTopic subTopic = QuestionSubTopic.S1;
+    String answer_content = "answer_content";
+    Essay essay = new Essay(content, score, answer_content, mainTopic, subTopic);
+    questionService.add(essay);
+    questionBundle.addQuestion(essay);
+    mockMvc.perform(get("/question/" + essay.getId().toString() + "/edit"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("question/update-form"))
+            .andExpect(model().attributeExists("account"))
+            .andExpect(model().attributeExists("question"))
+            .andExpect(model().attributeExists("questionBundle"))
+            .andExpect(model().attributeExists("questionForm"))
+    ;
+    ;
+  }
+
 }
