@@ -96,17 +96,25 @@ public class QuestionBundleController {
   }
 
   @GetMapping("/question_bundle/{id}/test_papers")
-  public String viewQuestionBundleTestPaperIndex(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+  public String viewCurrentQuestionBundleTestPaperIndex(@CurrentAccount Account account, @PathVariable Long id, Model model) {
     QuestionBundle questionBundle = questionBundleService.findOne(id);
-    List<TestPaperFlatDto> testPapers = testPaperService.findAllByStatus(TestPaperStatus.READY, id, null);
     List<TestPaperFlatDto> currentTestPapers = testPaperService.findAllByStatus(null, null, id);
-
-    model.addAttribute("testPapers", testPapers);
     model.addAttribute("currentTestPapers", currentTestPapers);
     model.addAttribute(account);
     model.addAttribute(questionBundle);
     model.addAttribute(new TestPaperQuestionBundleForm());
     return "question_bundle/test_papers";
+  }
+
+  @GetMapping("/question_bundle/{id}/add-test_papers")
+  public String viewAddQuestionBundleTestPaperIndex(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    QuestionBundle questionBundle = questionBundleService.findOne(id);
+    List<TestPaperFlatDto> testPapers = testPaperService.findAllByStatus(TestPaperStatus.READY, id, null);
+    model.addAttribute("testPapers", testPapers);
+    model.addAttribute(account);
+    model.addAttribute(questionBundle);
+    model.addAttribute(new TestPaperQuestionBundleForm());
+    return "question_bundle/add-test_papers";
   }
 
   @GetMapping("/question_bundle/{id}/edit")
