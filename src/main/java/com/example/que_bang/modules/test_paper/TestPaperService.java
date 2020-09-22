@@ -1,5 +1,6 @@
 package com.example.que_bang.modules.test_paper;
 
+import com.example.que_bang.modules.question.Question;
 import com.example.que_bang.modules.question_bundle.QuestionBundle;
 import com.example.que_bang.modules.question_bundle.QuestionBundleService;
 import com.example.que_bang.modules.test_paper.form.TestPaperForm;
@@ -52,6 +53,10 @@ public class TestPaperService {
   public void updateFromForm(Long id, TestPaperForm testPaperForm) {
     TestPaper testPaper = findOne(id);
     modelMapper.map(testPaperForm, testPaper);
+  }
+
+  public List<Question> getQuestions(Long id) {
+    return testPaperQueryRepository.getQuestions(id);
   }
 
   public void deleteOne(Long id) {

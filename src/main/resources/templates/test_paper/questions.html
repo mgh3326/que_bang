@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"></head>
+<body class="bg-light">
+<div th:replace="fragments.html :: main-nav"></div>
+<div class="container">
+    <div th:replace="fragments.html :: testPaper-info"></div>
+    <div th:replace="fragments.html :: testPaper-menu ('questions')"></div>
+
+    <div class="row mt-3 justify-content-center">
+<div class="col-sm-10">
+        <label for="print">문제 내용</label>
+        <textarea id="print" type="textarea" th:text="*{questionsContent}" class="editor form-control"
+                  placeholder="문제 내용을 입력하세요" aria-describedby="contentHelp" required></textarea>
+
+</div>
+
+    </div>
+
+    <div th:replace="fragments.html :: footer"></div>
+</div>
+<script th:replace="fragments.html :: tooltip"></script>
+<script th:replace="fragments.html :: date-time"></script>
+<script th:replace="fragments.html :: editor-script"></script>
+</body>
+</html>

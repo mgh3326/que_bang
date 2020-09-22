@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static com.example.que_bang.modules.question.QQuestion.question;
 
 
@@ -94,5 +96,21 @@ public class TestPaperController {
   public String deleteTestPaper(@CurrentAccount Account account, @PathVariable Long id, Model model) {
     testPaperService.deleteOne(id);
     return "redirect:/test_papers";
+  }
+
+  @GetMapping("/test_paper/{id}/questions")
+  public String TestPaperQuestions(@CurrentAccount Account account, @PathVariable Long id, Model model) {
+    TestPaper testPaper = testPaperService.findOne(id);
+    List<Question> questions = testPaperService.getQuestions(id); // TODO 한번에 쿼리하도록 변경 필요
+    StringBuilder questionsContent = new StringBuilder();
+    questions.forEach(question -> {
+      questionsContent.append(question.getContent());
+      questionsContent.append("<br>");
+    });
+    model.addAttribute("testPaper", testPaper);
+    model.addAttribute("questions", questions);
+    model.addAttribute("questionsContent", questionsContent);
+    model.addAttribute(account);
+    return "test_paper/questions";
   }
 }

@@ -1,6 +1,8 @@
 package com.example.que_bang.modules.test_paper.query;
 
 
+import com.example.que_bang.modules.question.QQuestion;
+import com.example.que_bang.modules.question.Question;
 import com.example.que_bang.modules.question_bundle.QQuestionBundle;
 import com.example.que_bang.modules.test_paper.QTestPaperQuestionBundle;
 import com.example.que_bang.modules.test_paper.TestPaperStatus;
@@ -76,6 +78,19 @@ public class TestPaperQueryRepository {
             .leftJoin(testPaperQuestionBundle.questionBundle, questionBundle)
             .fetchJoin()
             .fetchFirst());
+  }
+
+  public List<Question> getQuestions(Long id) {
+    JPAQueryFactory query = new JPAQueryFactory(em);
+    QQuestionBundle questionBundle = QQuestionBundle.questionBundle;
+    QTestPaperQuestionBundle testPaperQuestionBundle = QTestPaperQuestionBundle.testPaperQuestionBundle;
+    return query
+            .selectFrom(question)
+            .innerJoin(question.questionBundle, questionBundle)
+            .innerJoin(questionBundle.testPaperQuestionBundles, testPaperQuestionBundle)
+            .innerJoin(testPaperQuestionBundle.testPaper, testPaper)
+            .where(testPaper.id.eq(id))
+            .fetch();
   }
 
   private BooleanExpression statusEq(TestPaperStatus statusCond) {
