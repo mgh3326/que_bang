@@ -12,10 +12,14 @@ public class QuestionForm {
   @NotNull
   private QuestionType type;
   @NotNull
-  private Double score;//TODO null이 넘어 가는 경우가 있는걸로 보인다.
+  private Double score;
+  @NotNull
   private QuestionMainTopic mainTopic;
+  @NotNull
   private QuestionSubTopic subTopic;
+  @NotNull
   private String content;
+  @NotNull
   private String answerContent;
   @NotNull
   private Long questionBundleId;

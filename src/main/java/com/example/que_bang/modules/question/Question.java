@@ -62,4 +62,18 @@ public abstract class Question extends BaseWeightEntity {
   public void setAnswerContent(String answerContent) {
     this.getAnswer().setContent(answerContent);
   }
+
+  public static Question createQuestion(QuestionType questionType, String content, double score, String answerContent, QuestionMainTopic mainTopic, QuestionSubTopic subTopic) {
+    switch (questionType) {
+      case E:
+        return new Essay(content, score, answerContent, mainTopic, subTopic);
+      case M:
+        return new MultipleChoice(content, score, answerContent, mainTopic, subTopic);
+      case S:
+        return new ShortAnswer(content, score, answerContent, mainTopic, subTopic);
+
+      default:
+        throw new IllegalStateException("Unexpected value: " + questionType);
+    }
+  }
 }

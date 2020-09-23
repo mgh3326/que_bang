@@ -3,7 +3,7 @@ package com.example.que_bang.modules.question;
 import com.example.que_bang.modules.account.Account;
 import com.example.que_bang.modules.account.CurrentAccount;
 import com.example.que_bang.modules.question.form.QuestionForm;
-import com.example.que_bang.modules.question_bundle.form.QuestionBundleForm;
+import com.example.que_bang.modules.question_bundle.QuestionBundleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +18,13 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class QuestionController {
   private final QuestionService questionService;
+  private final QuestionBundleService questionBundleService;
 
   @PostMapping("/new-question")
   public String newQuestionSubmit(@CurrentAccount Account account, @Valid QuestionForm questionForm, Errors errors, Model model) {
     if (errors.hasErrors()) {
       model.addAttribute(account);
+      model.addAttribute(questionBundleService.findOne(questionForm.getQuestionBundleId()));
       return "question/form";
     }
     Long newQuestionId = questionService.addForm(questionForm);

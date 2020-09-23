@@ -2,10 +2,7 @@ package com.example.que_bang.modules.test_paper;
 
 import com.example.que_bang.modules.common.BaseServiceTest;
 import com.example.que_bang.modules.question.*;
-import com.example.que_bang.modules.question_bundle.QuestionBundle;
-import com.example.que_bang.modules.question_bundle.QuestionBundlePaper;
-import com.example.que_bang.modules.question_bundle.QuestionBundleService;
-import com.example.que_bang.modules.question_bundle.QuestionBundleTimeZone;
+import com.example.que_bang.modules.question_bundle.*;
 import com.example.que_bang.modules.test_paper.query.TestPaperFlatDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,33 +20,27 @@ class TestPaperServiceTest extends BaseServiceTest {
   QuestionBundleService questionBundleService;
   @Autowired
   TestPaperService testPaperService;
+  @Autowired
+  QuestionBundleFactory questionBundleFactory;
+  @Autowired
+  QuestionFactory questionFactory;
+  @Autowired
+  TestPaperFactory testPaperFactory;
 
   @Test
   void add() {
 
+    QuestionBundle questionBundle = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
+    QuestionBundle questionBundle2 = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     String content = "content";
-    double weight = 0.9;
+    double score = 0.9;
     String answer_content = "answer_content";
     QuestionMainTopic mainTopic = QuestionMainTopic.M1;
     QuestionSubTopic subTopic = QuestionSubTopic.S1;
-    Essay essay = Essay.createEssayWithAnswerContent(content, weight, answer_content, mainTopic, subTopic);
-    questionService.add(essay);
-
-    ShortAnswer shortAnswer = ShortAnswer.createShortAnswerWithAnswerContent(content, weight, answer_content, mainTopic, subTopic);
-    questionService.add(shortAnswer);
-
-    MultipleChoice multipleChoice = MultipleChoice.createMultipleChoiceWithAnswerContent(content, weight, answer_content, mainTopic, subTopic);
-    questionService.add(multipleChoice);
-    QuestionBundle questionBundle = QuestionBundle.createQuestionBundleWithQuestions(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1, essay, multipleChoice);
-    QuestionBundle questionBundle2 = QuestionBundle.createQuestionBundleWithQuestions(2020, 5, QuestionBundleTimeZone.T2, QuestionBundlePaper.P2, shortAnswer);
-    questionBundleService.add(questionBundle);
-    questionBundleService.add(questionBundle2);
-    TestPaperQuestionBundle testPaperQuestionBundle = TestPaperQuestionBundle.createWithQuestionBundle(questionBundle);
-    TestPaper testPaper = TestPaper.createTestPaperWithTestPaperQuestionBundles("test_paper_title", testPaperQuestionBundle);
-    testPaperService.add(testPaper);
-    // test paper에 com.example.que_bang.modules.question_bundle 하나 더 추가
-    TestPaperQuestionBundle testPaperQuestionBundle2 = TestPaperQuestionBundle.createWithQuestionBundle(questionBundle2);
-    testPaper.addTestPaperQuestionBundle(testPaperQuestionBundle2);
+    Question essay = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.E, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
+    Question multipleChoice = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.M, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
+    Question shortAnswer = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.S, content, score, answer_content, mainTopic, subTopic, questionBundle2.getId());
+    TestPaper testPaper = testPaperFactory.createTestPaperWithAddQuestionBundle("test_paper_title", questionBundle.getId(), questionBundle2.getId());
     TestPaper testPaper1 = testPaperService.findOne(testPaper.getId());
     List<TestPaperQuestionBundle> testPaperQuestionBundles = testPaper1.getTestPaperQuestionBundles();
     List<QuestionBundle> questionBundles = testPaperQuestionBundles.stream().map(TestPaperQuestionBundle::getQuestionBundle).collect(toList());

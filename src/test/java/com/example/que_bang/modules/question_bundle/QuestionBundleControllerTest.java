@@ -2,6 +2,7 @@ package com.example.que_bang.modules.question_bundle;
 
 import com.example.que_bang.modules.account.WithAccount;
 import com.example.que_bang.modules.common.BaseControllerTest;
+import com.example.que_bang.modules.question.QuestionFactory;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,8 @@ class QuestionBundleControllerTest extends BaseControllerTest {
   protected MockMvc mockMvc;
   @Autowired
   protected QuestionBundleService questionBundleService;
+  @Autowired
+  QuestionBundleFactory questionBundleFactory;
 
   @Test
   @WithAccount("robin")
@@ -80,8 +83,7 @@ class QuestionBundleControllerTest extends BaseControllerTest {
   @WithAccount("robin")
   @DisplayName("문제 묶음 개설 폼 조회")
   void viewQuestionBundle() throws Exception {
-    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
-    questionBundleService.add(questionBundle);
+    QuestionBundle questionBundle = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     mockMvc.perform(get(String.format("/question_bundle/%d", questionBundle.getId())))
             .andExpect(status().isOk())
             .andExpect(view().name("question_bundle/view"))
@@ -93,8 +95,7 @@ class QuestionBundleControllerTest extends BaseControllerTest {
   @WithAccount("robin")
   @DisplayName("문제 개설 폼 조회")
   void createQuestionForm() throws Exception {
-    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
-    questionBundleService.add(questionBundle);
+    QuestionBundle questionBundle = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     mockMvc.perform(get(String.format("/question_bundle/%d/new-question", questionBundle.getId())))
             .andExpect(status().isOk())
             .andExpect(view().name("question/form"))
@@ -107,8 +108,7 @@ class QuestionBundleControllerTest extends BaseControllerTest {
   @WithAccount("robin")
   @DisplayName("문제 묶음 수정 폼")
   void editQuestionBundle_form() throws Exception {
-    QuestionBundle questionBundle = QuestionBundle.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
-    questionBundleService.add(questionBundle);
+    QuestionBundle questionBundle = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     mockMvc.perform(get(String.format("/question_bundle/%d/edit", questionBundle.getId())))
             .andExpect(status().isOk())
             .andExpect(view().name("question_bundle/update-form"))

@@ -14,25 +14,22 @@ class QuestionBundleServiceTest extends BaseServiceTest {
   QuestionService questionService;
   @Autowired
   QuestionBundleService questionBundleService;
+  @Autowired
+  QuestionBundleFactory questionBundleFactory;
+  @Autowired
+  QuestionFactory questionFactory;
 
   @Test
   void add() {
-
+    QuestionBundle questionBundle = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     String content = "content";
-    double weight = 0.9;
+    double score = 0.9;
     String answer_content = "answer_content";
     QuestionMainTopic mainTopic = QuestionMainTopic.M1;
     QuestionSubTopic subTopic = QuestionSubTopic.S1;
-    Essay essay = Essay.createEssayWithAnswerContent(content, weight, answer_content, mainTopic, subTopic);
-    questionService.add(essay);
-
-    ShortAnswer shortAnswer = ShortAnswer.createShortAnswerWithAnswerContent(content, weight, answer_content, mainTopic, subTopic);
-    questionService.add(shortAnswer);
-
-    MultipleChoice multipleChoice = MultipleChoice.createMultipleChoiceWithAnswerContent(content, weight, answer_content, mainTopic, subTopic);
-    questionService.add(multipleChoice);
-    QuestionBundle questionBundle = QuestionBundle.createQuestionBundleWithQuestions(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1, essay, multipleChoice, shortAnswer);
-    questionBundleService.add(questionBundle);
+    Question essay = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.E, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
+    Question multipleChoice = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.M, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
+    Question shortAnswer = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.S, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
     QuestionBundle questionBundle1 = questionBundleService.findOne(questionBundle.getId());
     assertEquals(essay, questionBundle1.getQuestions().get(0));
     assertEquals(multipleChoice, questionBundle1.getQuestions().get(1));

@@ -3,7 +3,6 @@ package com.example.que_bang.modules.test_paper;
 import com.example.que_bang.modules.account.Account;
 import com.example.que_bang.modules.account.CurrentAccount;
 import com.example.que_bang.modules.question.Question;
-import com.example.que_bang.modules.question.form.QuestionForm;
 import com.example.que_bang.modules.test_paper.form.TestPaperForm;
 import com.example.que_bang.modules.test_paper.query.TestPaperQueryDto;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-
 import java.util.List;
-
-import static com.example.que_bang.modules.question.QQuestion.question;
 
 
 @Controller

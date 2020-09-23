@@ -1,7 +1,6 @@
 package com.example.que_bang.modules.test_paper.query;
 
 
-import com.example.que_bang.modules.question.QQuestion;
 import com.example.que_bang.modules.question.Question;
 import com.example.que_bang.modules.question_bundle.QQuestionBundle;
 import com.example.que_bang.modules.test_paper.QTestPaperQuestionBundle;
