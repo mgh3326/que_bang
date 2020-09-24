@@ -1,12 +1,11 @@
 package com.example.que_bang.modules.question;
 
+import com.example.que_bang.modules.account.AccountRepository;
 import com.example.que_bang.modules.account.WithAccount;
 import com.example.que_bang.modules.common.BaseControllerTest;
-import com.example.que_bang.modules.question_bundle.QuestionBundle;
-import com.example.que_bang.modules.question_bundle.QuestionBundleFactory;
-import com.example.que_bang.modules.question_bundle.QuestionBundlePaper;
-import com.example.que_bang.modules.question_bundle.QuestionBundleTimeZone;
+import com.example.que_bang.modules.question_bundle.*;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,13 @@ class QuestionControllerTest extends BaseControllerTest {
   private QuestionBundleFactory questionBundleFactory;
   @Autowired
   private QuestionFactory questionFactory;
+  @Autowired
+
+  private QuestionBundleService questionBundleService;
+  @Autowired
+  private AccountRepository accountRepository;
+
+
 
   @Test
   @WithAccount("robin")
@@ -59,6 +65,7 @@ class QuestionControllerTest extends BaseControllerTest {
             .andExpect(status().is3xxRedirection())
             .andExpect(redirectedUrlPattern("/question/*"))
     ;
+    questionBundle = questionBundleService.findOneWithQuestion(questionBundle.getId());
     assertEquals(questionBundle.getQuestions().get(0).getContent(), content);
   }
 

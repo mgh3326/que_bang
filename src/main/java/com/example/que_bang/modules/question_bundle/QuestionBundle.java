@@ -37,11 +37,11 @@ public class QuestionBundle extends BaseTimeEntity {
   private QuestionBundlePaper paper; // 시험 종류
 
 
-  @OneToMany(mappedBy = "questionBundle", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "questionBundle", cascade = CascadeType.PERSIST, orphanRemoval = true)
   @OrderBy("weight desc")
   private List<Question> questions = new ArrayList<>();
 
-  @OneToMany(mappedBy = "questionBundle")
+  @OneToMany(mappedBy = "questionBundle", cascade = CascadeType.PERSIST, orphanRemoval = true)
   private List<TestPaperQuestionBundle> testPaperQuestionBundles = new ArrayList<>();
 
   public static QuestionBundle createQuestionBundle(int year, int month, QuestionBundleTimeZone timeZone, QuestionBundlePaper paper) {
@@ -77,7 +77,7 @@ public class QuestionBundle extends BaseTimeEntity {
   }
 
   private Double generateMinWeight() {
-    Optional<Double> min = questions.stream().map(Question::getWeight).min(Double::compareTo);
+    Optional<Double> min = questions.parallelStream().map(Question::getWeight).min(Double::compareTo);
     return min.map(aDouble -> aDouble - weightInterval).orElse(defaultWeight);
   }
 }

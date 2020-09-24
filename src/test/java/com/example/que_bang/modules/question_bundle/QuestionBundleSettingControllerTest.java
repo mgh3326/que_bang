@@ -1,9 +1,11 @@
 package com.example.que_bang.modules.question_bundle;
 
+import com.example.que_bang.modules.account.AccountRepository;
 import com.example.que_bang.modules.account.WithAccount;
 import com.example.que_bang.modules.common.BaseControllerTest;
 import com.example.que_bang.modules.question.QuestionFactory;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ class QuestionBundleSettingControllerTest extends BaseControllerTest {
   protected QuestionBundleRepository questionBundleRepository;
   @Autowired
   QuestionBundleFactory questionBundleFactory;
+  @Autowired
+  private AccountRepository accountRepository;
 
   @Test
   @WithAccount("robin")

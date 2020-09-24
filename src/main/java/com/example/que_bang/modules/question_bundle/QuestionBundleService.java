@@ -44,6 +44,9 @@ public class QuestionBundleService {
 
   @Transactional
   public void deleteOne(Long id) {
-    questionBundleRepository.deleteById(id);
+    QuestionBundle questionBundle = findOne(id);
+    questionBundleRepository.delete(questionBundle);
+    questionBundle.getTestPaperQuestionBundles().parallelStream().forEach(testPaperQuestionBundle -> testPaperQuestionBundle.setQuestionBundle(null));
+    questionBundle.getQuestions().parallelStream().forEach(question -> question.setQuestionBundle(null));
   }
 }

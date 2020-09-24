@@ -1,11 +1,14 @@
 package com.example.que_bang.modules.test_paper;
 
+import com.example.que_bang.modules.account.AccountRepository;
 import com.example.que_bang.modules.account.WithAccount;
 import com.example.que_bang.modules.common.BaseControllerTest;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -19,6 +22,10 @@ class TestPaperControllerTest extends BaseControllerTest {
   protected MockMvc mockMvc;
   @Autowired
   protected TestPaperService testPaperService;
+  @Autowired
+  private AccountRepository accountRepository;
+
+
 
   @Test
   @WithAccount("robin")

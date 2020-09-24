@@ -29,7 +29,7 @@ public class TestPaper extends BaseTimeEntity {
   @Enumerated(EnumType.STRING)
   private TestPaperStatus status = TestPaperStatus.READY; // READY, COMP (진행중, 완료됨)
 
-  @OneToMany(mappedBy = "testPaper", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "testPaper", cascade = CascadeType.PERSIST, orphanRemoval = true)
   @OrderBy("weight desc")
   private List<TestPaperQuestionBundle> testPaperQuestionBundles = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class TestPaper extends BaseTimeEntity {
   }
 
   public Double generateMinWeight() {
-    Optional<Double> min = testPaperQuestionBundles.stream().map(TestPaperQuestionBundle::getWeight).min(Double::compareTo);
+    Optional<Double> min = testPaperQuestionBundles.parallelStream().map(TestPaperQuestionBundle::getWeight).min(Double::compareTo);
     return min.map(aDouble -> aDouble - weightInterval).orElse(defaultWeight);
   }
 }

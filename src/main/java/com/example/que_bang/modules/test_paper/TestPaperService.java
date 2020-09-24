@@ -59,7 +59,10 @@ public class TestPaperService {
     return testPaperQueryRepository.getQuestions(id);
   }
 
+  @Transactional
   public void deleteOne(Long id) {
-    testPaperRepository.deleteById(id);
+    TestPaper testPaper = findOne(id);
+    testPaper.getTestPaperQuestionBundles().parallelStream().forEach(testPaperQuestionBundle -> testPaperQuestionBundle.setTestPaper(null));
+    testPaperRepository.delete(testPaper);
   }
 }

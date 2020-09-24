@@ -5,9 +5,11 @@ import com.example.que_bang.modules.question_bundle.QuestionBundleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
+@Transactional
 public class QuestionFactory {
   @Autowired
   private QuestionService questionService;
