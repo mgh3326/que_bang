@@ -93,7 +93,6 @@ public class QuestionService {
   @Transactional
   public void deleteOne(Long id) {
     Question question = findOne(id);
-    question.setQuestionBundle(null);
     questionRepository.delete(question);
   }
 }

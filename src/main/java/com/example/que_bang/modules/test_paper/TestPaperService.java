@@ -62,7 +62,6 @@ public class TestPaperService {
   @Transactional
   public void deleteOne(Long id) {
     TestPaper testPaper = findOne(id);
-    testPaper.getTestPaperQuestionBundles().parallelStream().forEach(testPaperQuestionBundle -> testPaperQuestionBundle.setTestPaper(null));
     testPaperRepository.delete(testPaper);
   }
 }

@@ -3,10 +3,8 @@ package com.example.que_bang.modules.question_bundle;
 import com.example.que_bang.modules.account.AccountRepository;
 import com.example.que_bang.modules.common.BaseServiceTest;
 import com.example.que_bang.modules.question.*;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.jdbc.JdbcTestUtils;
 
 import static com.example.que_bang.modules.common.BaseWeightEntity.defaultWeight;
 import static com.example.que_bang.modules.common.BaseWeightEntity.weightInterval;

@@ -1,13 +1,14 @@
-package com.example.que_bang.modules.question_bundle;
+package com.example.que_bang.modules.test_paper;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface QuestionBundleRepository extends JpaRepository<QuestionBundle, Long> {
+public interface TestPaperQuestionBundleRepository extends JpaRepository<TestPaper, Long> {
+
   @Transactional
   @Modifying
-  @Query("delete from QuestionBundle q where q.id in (select q2.id from QuestionBundle q2)")
+  @Query("delete from TestPaperQuestionBundle tq where tq.id in (select tq2.id from TestPaperQuestionBundle tq2)")
   void deleteAllByIdInQuery();
 }

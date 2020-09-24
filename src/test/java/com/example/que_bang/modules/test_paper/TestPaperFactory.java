@@ -1,6 +1,5 @@
 package com.example.que_bang.modules.test_paper;
 
-import com.example.que_bang.modules.question_bundle.QuestionBundle;
 import com.example.que_bang.modules.question_bundle.QuestionBundleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Component
 @RequiredArgsConstructor

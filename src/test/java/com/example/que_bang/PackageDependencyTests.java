@@ -13,6 +13,7 @@ public class PackageDependencyTests {
   private static final String QUESTION_BUNDLE = "..modules.question_bundle..";
   private static final String TEST_PAPER_QUESTION_BUNDLE = "..modules.test_paper_question_bundle..";
   private static final String TEST_PAPER = "..modules.test_paper..";
+  private static final String COMMON = "..modules.common..";
 
   @ArchTest
   ArchRule modulesPackageRule = classes().that().resideInAPackage("com.example.que_bang.modules..")
@@ -21,5 +22,5 @@ public class PackageDependencyTests {
   @ArchTest
   ArchRule quebangPackageRule = classes().that().resideInAPackage(QUESTION_BUNDLE)
           .should().onlyBeAccessed().byClassesThat()
-          .resideInAnyPackage(QUESTION_BUNDLE, QUESTION, TEST_PAPER_QUESTION_BUNDLE, TEST_PAPER);
+          .resideInAnyPackage(QUESTION_BUNDLE, QUESTION, TEST_PAPER_QUESTION_BUNDLE, TEST_PAPER, COMMON);
 }
