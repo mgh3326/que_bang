@@ -1,6 +1,5 @@
 package com.example.que_bang.modules.test_paper;
 
-import com.example.que_bang.modules.account.AccountRepository;
 import com.example.que_bang.modules.common.BaseServiceTest;
 import com.example.que_bang.modules.question.*;
 import com.example.que_bang.modules.question_bundle.*;
@@ -28,7 +27,7 @@ class TestPaperServiceTest extends BaseServiceTest {
   @Autowired
   TestPaperFactory testPaperFactory;
   @Autowired
-  private AccountRepository accountRepository;
+  TestPaperQuestionBundleService testPaperQuestionBundleService;
 
 
   @Test
@@ -64,6 +63,8 @@ class TestPaperServiceTest extends BaseServiceTest {
     QuestionBundle questionBundle2 = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     QuestionBundle questionBundle3 = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     QuestionBundle questionBundle4 = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
+    QuestionBundle questionBundle5 = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
+    QuestionBundle questionBundle6 = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
     String content = "content";
     double score = 0.9;
     String answer_content = "answer_content";
@@ -73,10 +74,13 @@ class TestPaperServiceTest extends BaseServiceTest {
     questionFactory.createQuestionWithAddQuestionBundle(QuestionType.S, content, score, answer_content, mainTopic, subTopic, questionBundle2.getId());
     questionFactory.createQuestionWithAddQuestionBundle(QuestionType.M, content, score, answer_content, mainTopic, subTopic, questionBundle3.getId());
     questionFactory.createQuestionWithAddQuestionBundle(QuestionType.M, content, score, answer_content, mainTopic, subTopic, questionBundle4.getId());
+    questionFactory.createQuestionWithAddQuestionBundle(QuestionType.M, content, score, answer_content, mainTopic, subTopic, questionBundle5.getId());
+    questionFactory.createQuestionWithAddQuestionBundle(QuestionType.M, content, score, answer_content, mainTopic, subTopic, questionBundle6.getId());
 
     TestPaper testPaper = testPaperFactory.createTestPaperWithAddQuestionBundle("test_paper_title", questionBundle.getId(), questionBundle2.getId());
     TestPaper testPaper2 = testPaperFactory.createTestPaperWithAddQuestionBundle("test_paper_title", questionBundle2.getId(), questionBundle3.getId());
     TestPaper testPaper3 = testPaperFactory.createTestPaperWithAddQuestionBundle("test_paper_title", questionBundle3.getId(), questionBundle4.getId());
+    TestPaper testPaper4 = testPaperFactory.createTestPaperWithAddQuestionBundle("test_paper_title", questionBundle5.getId(), questionBundle6.getId());
 
     TestPaper one = testPaperFactory.findOne(testPaper.getId());
     List<TestPaperQuestionBundle> testPaperQuestionBundles = one.getTestPaperQuestionBundles();
@@ -93,9 +97,9 @@ class TestPaperServiceTest extends BaseServiceTest {
     assertEquals(testPaperFactory.findOne(testPaper2.getId()).getTestPaperQuestionBundles().size(), 1);
     assertEquals(questionBundleFactory.findOne(questionBundle3.getId()).getTestPaperQuestionBundles().size(), 1);
     assertEquals(questionBundleFactory.findOne(questionBundle4.getId()).getTestPaperQuestionBundles().size(), 0);
-    testPaperQuestionBundles = one.getTestPaperQuestionBundles();
-    questionBundles = testPaperQuestionBundles.stream().map(TestPaperQuestionBundle::getQuestionBundle).collect(toList());
-    System.out.println("questionBundles = " + questionBundles);
+    TestPaper one1 = testPaperFactory.findOne(testPaper4.getId());
+    testPaperQuestionBundleService.deleteTestPaperQuestionBundle(one1.getTestPaperQuestionBundles().get(0).getId());
+    assertEquals(testPaperFactory.findOne(testPaper4.getId()).getTestPaperQuestionBundles().size(), 1);
   }
 
   @Test

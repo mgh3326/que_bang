@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface TestPaperQuestionBundleRepository extends JpaRepository<TestPaper, Long> {
+public interface TestPaperQuestionBundleRepository extends JpaRepository<TestPaperQuestionBundle, Long> {
 
   @Transactional
   @Modifying
