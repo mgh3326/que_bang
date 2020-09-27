@@ -42,6 +42,7 @@ public class QuestionBundle extends BaseTimeEntity {
   private List<Question> questions = new ArrayList<>();
 
   @OneToMany(mappedBy = "questionBundle", cascade = CascadeType.PERSIST, orphanRemoval = true)
+  @OrderBy("weight desc")
   private List<TestPaperQuestionBundle> testPaperQuestionBundles = new ArrayList<>();
 
   public static QuestionBundle createQuestionBundle(int year, int month, QuestionBundleTimeZone timeZone, QuestionBundlePaper paper) {

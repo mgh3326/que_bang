@@ -23,7 +23,6 @@ class QuestionBundleServiceTest extends BaseServiceTest {
   private AccountRepository accountRepository;
 
 
-
   @Test
   void add() {
     QuestionBundle questionBundle = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
@@ -38,8 +37,9 @@ class QuestionBundleServiceTest extends BaseServiceTest {
     QuestionBundle questionBundle1 = questionBundleService.findOneWithQuestion(questionBundle.getId());
     assertEquals(essay, questionBundle1.getQuestions().get(0));
     assertEquals(multipleChoice, questionBundle1.getQuestions().get(1));
+    assertEquals(shortAnswer, questionBundle1.getQuestions().get(2));
     assertEquals(questionBundle1.getQuestions().get(0).getWeight(), defaultWeight);
     assertEquals(questionBundle1.getQuestions().get(questionBundle1.getQuestions().size() - 1).getWeight(), defaultWeight - 2 * weightInterval);
-    assertEquals(shortAnswer, questionBundle1.getQuestions().get(2));
+    assertEquals(questionBundle1.getQuestions().get(questionBundle1.getQuestions().size() - 2).getWeight(), defaultWeight - 1 * weightInterval);
   }
 }

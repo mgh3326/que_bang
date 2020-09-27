@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -94,5 +95,18 @@ public class QuestionService {
   public void deleteOne(Long id) {
     Question question = findOne(id);
     questionRepository.delete(question);
+  }
+
+  @Transactional
+  public void changeWeight(Long id, Long largeWeightId, Long smallWeightId) {
+    Question question = findOne(id);
+    Double largeValue = getWeightValue(Optional.ofNullable(largeWeightId));
+    Double smallValue = getWeightValue(Optional.ofNullable(smallWeightId));
+    Double middleValue = Question.middleValue(largeValue, smallValue);
+    question.setWeight(middleValue);
+  }
+
+  private Double getWeightValue(Optional<Long> id) {
+    return id.map(aLong -> findOne(aLong).getWeight()).orElse(null);
   }
 }

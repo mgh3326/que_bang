@@ -8,8 +8,7 @@ import com.example.que_bang.modules.question_bundle.QuestionBundleTimeZone;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class QuestionServiceTest extends BaseServiceTest {
   @Autowired
@@ -35,5 +34,22 @@ class QuestionServiceTest extends BaseServiceTest {
     assertEquals(essay1.getAnswer().getContent(), answer_content);
     assertEquals(mainTopic, essay1.getMainTopic());
     assertEquals(subTopic, essay1.getSubTopic());
+  }
+
+  @Test
+  void weight() {
+    QuestionBundle questionBundle = questionBundleFactory.createQuestionBundle(2020, 5, QuestionBundleTimeZone.T1, QuestionBundlePaper.P1);
+    String content = "content";
+    double score = 0.9;
+    String answer_content = "answer_content";
+    QuestionMainTopic mainTopic = QuestionMainTopic.M1;
+    QuestionSubTopic subTopic = QuestionSubTopic.S1;
+    Question essay = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.E, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
+    Question essay1 = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.E, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
+    Question essay2 = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.E, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
+    questionService.changeWeight(essay.getId(), essay1.getId(), essay2.getId());
+    assertTrue(questionService.findOne(essay1.getId()).getWeight() > questionService.findOne(essay.getId()).getWeight());
+    questionService.changeWeight(essay.getId(), essay1.getId(), null);
+    assertTrue(questionService.findOne(essay.getId()).getWeight() > questionService.findOne(essay1.getId()).getWeight());
   }
 }
