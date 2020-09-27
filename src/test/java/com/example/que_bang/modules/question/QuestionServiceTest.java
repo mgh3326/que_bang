@@ -1,6 +1,7 @@
 package com.example.que_bang.modules.question;
 
 import com.example.que_bang.modules.common.BaseServiceTest;
+import com.example.que_bang.modules.common.BaseWeightEntity;
 import com.example.que_bang.modules.question_bundle.QuestionBundle;
 import com.example.que_bang.modules.question_bundle.QuestionBundleFactory;
 import com.example.que_bang.modules.question_bundle.QuestionBundlePaper;
@@ -47,9 +48,14 @@ class QuestionServiceTest extends BaseServiceTest {
     Question essay = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.E, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
     Question essay1 = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.E, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
     Question essay2 = questionFactory.createQuestionWithAddQuestionBundle(QuestionType.E, content, score, answer_content, mainTopic, subTopic, questionBundle.getId());
-    questionService.changeWeight(essay.getId(), essay1.getId(), essay2.getId());
+    assertEquals(BaseWeightEntity.defaultWeight, questionService.findOne(essay.getId()).getWeight());
+    assertEquals(BaseWeightEntity.defaultWeight - BaseWeightEntity.weightInterval, questionService.findOne(essay1.getId()).getWeight());
+    assertEquals(BaseWeightEntity.defaultWeight - BaseWeightEntity.weightInterval * 2, questionService.findOne(essay2.getId()).getWeight());
+    questionService.changeWeight(essay.getId(), 1);
     assertTrue(questionService.findOne(essay1.getId()).getWeight() > questionService.findOne(essay.getId()).getWeight());
-    questionService.changeWeight(essay.getId(), essay1.getId(), null);
+    assertEquals((questionService.findOne(essay1.getId()).getWeight() + questionService.findOne(essay2.getId()).getWeight()) / 2, questionService.findOne(essay.getId()).getWeight());
+    questionService.changeWeight(essay.getId(), 0);
     assertTrue(questionService.findOne(essay.getId()).getWeight() > questionService.findOne(essay1.getId()).getWeight());
+    assertEquals(questionService.findOne(essay1.getId()).getWeight() + BaseWeightEntity.weightInterval, questionService.findOne(essay.getId()).getWeight());
   }
 }

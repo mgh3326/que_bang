@@ -1,5 +1,6 @@
 package com.example.que_bang.modules.question;
 
+import com.example.que_bang.modules.common.WeightChangeDto;
 import com.example.que_bang.modules.question.form.QuestionForm;
 import com.example.que_bang.modules.question_bundle.QuestionBundle;
 import com.example.que_bang.modules.question_bundle.QuestionBundleService;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -98,15 +98,24 @@ public class QuestionService {
   }
 
   @Transactional
-  public void changeWeight(Long id, Long largeWeightId, Long smallWeightId) {
+  public void changeWeight(Long id, int targetIndex) {
     Question question = findOne(id);
-    Double largeValue = getWeightValue(Optional.ofNullable(largeWeightId));
-    Double smallValue = getWeightValue(Optional.ofNullable(smallWeightId));
-    Double middleValue = Question.middleValue(largeValue, smallValue);
-    question.setWeight(middleValue);
+    WeightChangeDto weightChangeDto = getWeightChangeDto(question.getQuestionBundle().getId(), targetIndex);
+    Double targetValue = Question.targetValue(weightChangeDto);
+    question.setWeight(targetValue);
   }
 
-  private Double getWeightValue(Optional<Long> id) {
-    return id.map(aLong -> findOne(aLong).getWeight()).orElse(null);
+  private WeightChangeDto getWeightChangeDto(Long questionBundleId, int targetIndex) {
+    WeightChangeDto weightChangeDto = new WeightChangeDto();
+    List<Question> questions = questionBundleService.findOneWithQuestion(questionBundleId).getQuestions();
+    if (targetIndex == 0) {
+      weightChangeDto.setLargeValue(questions.get(0).getWeight());
+    } else if (targetIndex >= questions.size()) {
+      weightChangeDto.setSmallValue(questions.get(questions.size() - 1).getWeight());
+    } else {
+      weightChangeDto.setSmallValue(questions.get(targetIndex + 1).getWeight());
+      weightChangeDto.setLargeValue(questions.get(targetIndex).getWeight());
+    }
+    return weightChangeDto;
   }
 }
