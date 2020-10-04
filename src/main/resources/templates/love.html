@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"></head>
+<body class="bg-light">
+<div th:replace="fragments.html :: main-nav"></div>
+<div class="container">
+    <div class="row py-4 justify-content-center">
+        <canvas id="canvas" width="525" height="525"></canvas>
+    </div>
+    <div class="row py-4 justify-content-center">
+        <p>사랑해</p>
+    </div>
+    <div class="row py-4 text-left justify-content-center bg-light">
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item"> status_code:
+                <span th:text="${love.statusCode}"></span></li>
+            <li class="list-group-item"> message:
+                <span th:text="${love.message}"></span></li>
+            <li class="list-group-item"> code:
+                <span th:text="${love.code}"></span></li>
+        </ul>
+    </div>
+</div>
+<div th:replace="fragments.html :: footer"></div>
+</body>
+</html>
+<script src="/js/valentine.js"></script>
