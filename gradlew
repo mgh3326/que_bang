@@ -35,7 +35,7 @@ while [ -h "$PRG" ]; do
     PRG=$(dirname "$PRG")"/$link"
   fi
 done
-SAVED="$PWD"
+SAVED="$(pwd)"
 cd "$(dirname \""$PRG"\")/" >/dev/null
 APP_HOME="$(pwd -P)"
 cd "$SAVED" >/dev/null
