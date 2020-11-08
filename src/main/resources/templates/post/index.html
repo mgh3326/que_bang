@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"></head>
+<body class="bg-light">
+<div th:replace="fragments.html :: main-nav"></div>
+
+<div class="container">
+    <div class="row py-4 text-left justify-content-center bg-light">
+        <div class="col-6">
+            <h2>이쁜이 ❤️ 빵이</h2>
+        </div>
+        <div class="col-4 text-right justify-content-end">
+            <a class="btn btn-primary"
+               th:href="@{/new-post}">
+                <i class="fa fa-plus"></i> 추가
+            </a>
+        </div>
+    </div>
+
+    <div class="row mt-3 justify-content-center">
+        <table class="table col-sm-10">
+            <thead class="thead-light">
+            <th scope="col">#</th>
+            <th scope="col">type</th>
+            <th scope="col">title</th>
+            <th scope="col">date</th>
+            <th scope="col">action</th>
+            </thead>
+            <tbody>
+            <tr th:each="post: ${posts}">
+                <td th:text="${post.id}"></td>
+                <td th:text="${post.type}"></td>
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.date}"></td>
+                <td><a href="#" th:href="@{'/post/' + ${post.id}}"
+                       class="card-link">Detail</a>
+                    <a href="#" th:href="@{'/post/' + ${post.id} +'/edit'}"
+                       class="card-link">Edit</a>
+                    <a href="#" th:href="@{'/post/' + ${post.id} +'/delete'}"
+                       class="card-link">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <div th:replace="fragments.html :: footer"></div>
+</div>
+</body>
+</html>
