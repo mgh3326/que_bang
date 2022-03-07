@@ -37,7 +37,7 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.5'
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.2'
     implementation "com.querydsl:querydsl-jpa" // querydsl
     implementation "com.querydsl:querydsl-apt" // querydsl
